@@ -1,0 +1,43 @@
+@import url('/style.css');
+
+body{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+button{
+    cursor: pointer;
+}
+.news-submission{
+    padding: 20px;
+}
+.news-submission-form{
+    display: grid;
+    grid-template-columns: repeat(2,1fr);
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+.news-submission-form>*{
+    padding: 5px;
+    margin: 5px;
+}
+.news-submission button{
+    color: white;
+    border: none;
+    font-size: 20px;
+    background-color: var(--btn-hvr);
+    font-weight: 600;
+    width: fit-content;
+    padding: 4px 12px;
+    border-radius: 16px;
+}
+input, textarea, select{
+    resize: none;
+    border-radius: 4px;
+    border: 1px solid black;
+}
+input[type='file']{
+    border: none;
+}

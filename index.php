@@ -1,3 +1,12 @@
+<?php
+
+session_start();
+
+include $_SERVER['DOCUMENT_ROOT'] . '/config/db_conn.php';
+include 'config/app.php';
+
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -161,6 +170,7 @@
                             </div>
                         </div>
                     </div>
+                    <?php main($conn) ?>
                 </div>
                 <div class="rt-news flex">
                     <h2>For You</h2>
@@ -207,6 +217,13 @@
                 </div>
             </div>
         </div>
+    </div>
+    <div class="pagination">
+    <?php
+    for ($page = 1; $page <= $total_pages; $page++) {
+        echo '<a href="index.php?page=' . $page . '">' . $page . '</a> ';
+    }
+    ?>
     </div>
     <footer>
         <div class="footer">
