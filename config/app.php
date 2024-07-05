@@ -7,9 +7,9 @@ include $_SERVER['DOCUMENT_ROOT'] . '/config/db_conn.php';
 function main($conn)
 {
     $total_news = count(fetch_all_news($conn));
-    $news_per_page = 12;
-    $total_pages = ceil($total_news / $news_per_page);
+    $news_per_page = 8;
     global $total_pages;
+    $total_pages = ceil($total_news / $news_per_page);
 
     if (!isset($_GET['page'])) {
         $page = 1;
@@ -17,57 +17,85 @@ function main($conn)
         $page = $_GET['page'];
     }
 
-    $news_set = ($page - 1) * $news_per_page;
+    $current_page = ($page - 1) * $news_per_page;
 
-    $query = $conn->prepare("SELECT * FROM news_articles ORDER BY posted_on LIMIT $news_set, $news_per_page");
+    $query = $conn->prepare("SELECT * FROM news_articles ORDER BY posted_on DESC LIMIT $current_page, $news_per_page");
+    // $query = $conn->prepare("SELECT * FROM news_articles ORDER BY posted_on DESC LIMIT 4");
     $query->execute();
     $result = $query->get_result();
 
-    // echo '<div class="news-container">';
-    $news_count = 0;
+    $count = 0;
     while ($row = $result->fetch_assoc()) {
-        if ($news_count % 4 == 0) {
-            if ($news_count > 0) {
-                echo '</div>'; // Close previous news-grid
+        $close = false;
+        if ($count % 4 == 0) {
+            if ($count > 0) {
+                echo '</div>';
+                echo '</div>';
             }
-            echo '<div class="news-grid">'; // Start new news-grid
+            echo '<div class="news-container">';
+            echo '<div class="news-grid">';
         }
 
-        $news_count++;
-        $time_diff = time() - strtotime($row['posted_on']);
-        $hours_ago = floor($time_diff / 3600);
-        $time_ago = $hours_ago . ' hours ago';
-        $category = htmlspecialchars($row['news_category']);
-        $title = htmlspecialchars($row['news_title']);
-        $thumbnail = htmlspecialchars($row['thumbnail_path']);
+        $count++;
 
-        if ($news_count % 4 == 1) {
+        if ($count % 4 == 1) {
             echo '<div class="news-01 flex-direction">';
-            echo '<img src="' . $thumbnail . '" alt="news-image">';
-            echo '<h4 class="category-label">' . $category . '</h4>';
-            echo '<h5 class="news-01-heading">' . $title . '</h5>';
-            echo '<h5 class="news-ago">' . $time_ago . '</h5>';
+            echo '<input type="hidden" name="news_id" value="' . $row['news_id'] . '">';
+            echo '<input type="hidden" name="news_id" value="' . $row['image_identifier'] . '">';
+            echo '<img src="' . $row['thumbnail_path'] . '" alt="news-image">';
+            echo '<h4 class="category-label">' . $row['news_category'] . '</h4>';
+            echo '<h5 class="news-01-heading">' . $row['news_title'] . '</h5>';
+            echo '<h5 class="news-ago">' . $row['posted_on'] . '</h5>';
             echo '</div>';
         } else {
-            if ($news_count % 4 == 2) {
+            if ($count % 4 == 2) {
                 echo '<div class="news-02 flex-direction">';
             }
             echo '<div class="news-02-section flex-direction">';
-            echo '<h4 class="category-label">' . $category . '</h4>';
-            echo '<h5 class="news-02-heading">' . $title . '</h5>';
-            echo '<h5 class="news-ago">' . $time_ago . '</h5>';
+            echo '<input type="hidden" name="news_id" value="' . $row['news_id'] . '">';
+            echo '<input type="hidden" name="news_id" value="' . $row['image_identifier'] . '">';
+            echo '<h4 class="category-label">' . $row['news_category'] . '</h4>';
+            echo '<h5 class="news-02-heading">' . $row['news_title'] . '</h5>';
+            echo '<h5 class="news-ago">' . $row['posted_on'] . '</h5>';
             echo '</div>';
-            if ($news_count % 4 == 0) {
-                echo '</div>'; // Close news-02
+            if ($count % 4 == 0) {
+                echo '</div>';
             }
         }
     }
-    if ($news_count % 4 != 0) {
-        echo '</div>'; // Close last news-grid
+    if ($count % 4 != 0) {
+        if ($count % 4 != 1) {
+            echo '</div>';
+        }
+        echo "</div>";
+        echo "</div>";
+    } else {
+        echo "</div>";
+        echo "</div>";
     }
-    echo '</div>';
 }
 
+function for_you($conn)
+{
+    $query = $conn->prepare("SELECT * FROM news_articles ORDER BY posted_on DESC LIMIT 3");
+    $query->execute();
+    $result = $query->get_result();
+
+    while ($row = $result->fetch_assoc()) {
+        echo '<div class="rt-news-grid">';
+        echo '<div class="lt-rt-news flex-direction">';
+        echo '<input type="hidden" name="news_id" value="' . $row['news_id'] . '">';
+        echo '<input type="hidden" name="news_id" value="' . $row['image_identifier'] . '">';
+        echo '<h4 class="category-label">' . $row['news_category'] . '</h4>';
+        echo '<h5 class="news-02-heading">' . $row['news_title'] . '</h5>';
+        echo '<h5 class="news-ago">' . $row['posted_on'] . '</h5>';
+        echo '</div>';
+        echo '<div class="rt-rt-news">';
+        echo '<img src="' . $row['thumbnail_path'] . '" alt="image">';
+        echo '</div>';
+        echo '</div>';
+    }
+}
 function fetch_all_news($conn)
 {
     $query = $conn->prepare("SELECT * FROM news_articles WHERE 1");
@@ -76,41 +104,3 @@ function fetch_all_news($conn)
 
     return $result->fetch_all(MYSQLI_ASSOC);
 }
-
-?>
-<!-- <link rel="stylesheet" href="/style.css">
-<div class="news-container">
-    <div class="news-grid">
-        <div class="news-01 flex-direction">
-            <img src="/assets/img/t20.webp" alt="news-image">
-            <h4 class="category-label">Cricket</h4>
-            <h5 class="news-01-heading">INDIA won ICC T20 Men's World Cup after 13 years in west
-                indies under rohit sharma's
-                captaincy.</h5>
-            <h5 class="news-ago">2 hours ago.</h5>
-        </div>
-        <div class="news-02 flex-direction">
-            <div class="news-02-section flex-direction">
-                <h4 class="category-label">Cricket</h4>
-                <h5 class="news-02-heading">INDIA won ICC T20 Men's World Cup after 13 years in west
-                    indies under rohit's
-                    captaincy.</h5>
-                <h5 class="news-ago">2 hours ago.</h5>
-            </div>
-            <div class="news-02-section flex-direction">
-                <h4 class="category-label">Cricket</h4>
-                <h5 class="news-02-heading">INDIA won ICC T20 Men's World Cup after 13 years in west
-                    indies under rohit's
-                    captaincy.</h5>
-                <h5 class="news-ago">2 hours ago.</h5>
-            </div>
-            <div class="news-02-section flex-direction">
-                <h4 class="category-label">Cricket</h4>
-                <h5 class="news-02-heading">INDIA won ICC T20 Men's World Cup after 13 years in west
-                    indies under rohit's
-                    captaincy.</h5>
-                <h5 class="news-ago">2 hours ago.</h5>
-            </div>
-        </div>
-    </div>
-</div> -->

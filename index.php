@@ -5,6 +5,30 @@ session_start();
 include $_SERVER['DOCUMENT_ROOT'] . '/config/db_conn.php';
 include 'config/app.php';
 
+
+{
+    if(isset($_GET['invalid_category']) && $_GET['invalid_category'] == 1){
+        echo '<script>alert("Invalid Category Selection.")</script>';
+       //  unset($_GET['invalid_category']);
+       header("Location: /");
+    }
+    if(isset($_GET['invalid_news']) && $_GET['invalid_news'] == 1){
+        echo '<script>alert("Invalid News Selection.")</script>';
+       //  unset($_GET['invalid_news']);
+       header("Location: /");
+    }
+    if(isset($_GET['invalid_search']) && $_GET['invalid_search'] == 1){
+        echo '<script>alert("Invalid Search Input.")</script>';
+       //  unset($_GET['invalid_search']);
+       header("Location: /");
+    }
+    if(isset($_GET['invalid_trending_topic']) && $_GET['invalid_trending_topic'] == 1){
+        echo '<script>alert("Invalid Trending topic selection.")</script>';
+       //  unset($_GET['invalid_search']);
+       header("Location: /");
+    }
+}
+
 ?>
 
 <!DOCTYPE html>
@@ -34,7 +58,7 @@ include 'config/app.php';
                 <a href="#" class="nav-list-items">Economy</a>
             </div>
             <div class="rt-nav flex">
-                <form action="" method="post" class="flex">
+                <form action="public/search_results/" method="post" class="flex">
                     <input type="text" name="search-field" placeholder="search any topic" required>
                     <button type="submit">
                         <img class="search-icon" src="assets/img/svgs/search.svg" alt="search" />
@@ -65,165 +89,33 @@ include 'config/app.php';
             <div class="news">
                 <div class="lt-news flex">
                     <h2>Top Stories</h2>
-                    <div class="news-container">
-                        <div class="news-grid">
-                            <div class="news-01 flex-direction">
-                                <img src="assets/img/t20.webp" alt="news-image">
-                                <h4 class="category-label">Cricket</h4>
-                                <h5 class="news-01-heading">INDIA won ICC T20 Men's World Cup after 13 years in west
-                                    indies under rohit sharma's
-                                    captaincy.</h5>
-                                <h5 class="news-ago">2 hours ago.</h5>
-                            </div>
-                            <div class="news-02 flex-direction">
-                                <div class="news-02-section flex-direction">
-                                    <h4 class="category-label">Cricket</h4>
-                                    <h5 class="news-02-heading">INDIA won ICC T20 Men's World Cup after 13 years in west
-                                        indies under rohit's
-                                        captaincy.</h5>
-                                    <h5 class="news-ago">2 hours ago.</h5>
-                                </div>
-                                <div class="news-02-section flex-direction">
-                                    <h4 class="category-label">Cricket</h4>
-                                    <h5 class="news-02-heading">INDIA won ICC T20 Men's World Cup after 13 years in west
-                                        indies under rohit's
-                                        captaincy.</h5>
-                                    <h5 class="news-ago">2 hours ago.</h5>
-                                </div>
-                                <div class="news-02-section flex-direction">
-                                    <h4 class="category-label">Cricket</h4>
-                                    <h5 class="news-02-heading">INDIA won ICC T20 Men's World Cup after 13 years in west
-                                        indies under rohit's
-                                        captaincy.</h5>
-                                    <h5 class="news-ago">2 hours ago.</h5>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="news-container">
-                        <div class="news-grid">
-                            <div class="news-01 flex-direction">
-                                <img src="assets/img/t20.webp" alt="news-image">
-                                <h4 class="category-label">Cricket</h4>
-                                <h5 class="news-01-heading">INDIA won ICC T20 Men's World Cup after 13 years in west
-                                    indies under rohit sharma's
-                                    captaincy.</h5>
-                                <h5 class="news-ago">2 hours ago.</h5>
-                            </div>
-                            <div class="news-02 flex-direction">
-                                <div class="news-02-section flex-direction">
-                                    <h4 class="category-label">Cricket</h4>
-                                    <h5 class="news-02-heading">INDIA won ICC T20 Men's World Cup after 13 years in west
-                                        indies under rohit's
-                                        captaincy.</h5>
-                                    <h5 class="news-ago">2 hours ago.</h5>
-                                </div>
-                                <div class="news-02-section flex-direction">
-                                    <h4 class="category-label">Cricket</h4>
-                                    <h5 class="news-02-heading">INDIA won ICC T20 Men's World Cup after 13 years in west
-                                        indies under rohit's
-                                        captaincy.</h5>
-                                    <h5 class="news-ago">2 hours ago.</h5>
-                                </div>
-                                <div class="news-02-section flex-direction">
-                                    <h4 class="category-label">Cricket</h4>
-                                    <h5 class="news-02-heading">INDIA won ICC T20 Men's World Cup after 13 years in west
-                                        indies under rohit's
-                                        captaincy.</h5>
-                                    <h5 class="news-ago">2 hours ago.</h5>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="news-container">
-                        <div class="news-grid">
-                            <div class="news-01 flex-direction">
-                                <img src="assets/img/t20.webp" alt="news-image">
-                                <h4 class="category-label">Cricket</h4>
-                                <h5 class="news-01-heading">INDIA won ICC T20 Men's World Cup after 13 years in west
-                                    indies under rohit sharma's
-                                    captaincy.</h5>
-                                <h5 class="news-ago">2 hours ago.</h5>
-                            </div>
-                            <div class="news-02 flex-direction">
-                                <div class="news-02-section flex-direction">
-                                    <h4 class="category-label">Cricket</h4>
-                                    <h5 class="news-02-heading">INDIA won ICC T20 Men's World Cup after 13 years in west
-                                        indies under rohit's
-                                        captaincy.</h5>
-                                    <h5 class="news-ago">2 hours ago.</h5>
-                                </div>
-                                <div class="news-02-section flex-direction">
-                                    <h4 class="category-label">Cricket</h4>
-                                    <h5 class="news-02-heading">INDIA won ICC T20 Men's World Cup after 13 years in west
-                                        indies under rohit's
-                                        captaincy.</h5>
-                                    <h5 class="news-ago">2 hours ago.</h5>
-                                </div>
-                                <div class="news-02-section flex-direction">
-                                    <h4 class="category-label">Cricket</h4>
-                                    <h5 class="news-02-heading">INDIA won ICC T20 Men's World Cup after 13 years in west
-                                        indies under rohit's
-                                        captaincy.</h5>
-                                    <h5 class="news-ago">2 hours ago.</h5>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
                     <?php main($conn) ?>
                 </div>
                 <div class="rt-news flex">
                     <h2>For You</h2>
                     <div class="news-container">
                         <div class="news-container-content flex-direction">
-                            <div class="rt-news-grid">
-                                <div class="lt-rt-news flex-direction">
-                                    <h4 class="category-label">Cricket</h4>
-                                    <h5 class="news-02-heading">INDIA won ICC T20 Men's World Cup after 13 years in west
-                                        indies under rohit sharma's
-                                        captaincy.</h5>
-                                    <h5 class="news-ago">2 hours ago.</h5>
-                                </div>
-                                <div class="rt-rt-news">
-                                    <img src="assets/img/t20.webp" alt="image">
-                                </div>
-                            </div>
-                            <div class="rt-news-grid">
-                                <div class="lt-rt-news flex-direction">
-                                    <h4 class="category-label">Cricket</h4>
-                                    <h5 class="news-02-heading">INDIA won ICC T20 Men's World Cup after 13 years in west
-                                        indies under rohit sharma's
-                                        captaincy.</h5>
-                                    <h5 class="news-ago">2 hours ago.</h5>
-                                </div>
-                                <div class="rt-rt-news">
-                                    <img src="assets/img/t20.webp" alt="image">
-                                </div>
-                            </div>
-                            <div class="rt-news-grid">
-                                <div class="lt-rt-news flex-direction">
-                                    <h4 class="category-label">Cricket</h4>
-                                    <h5 class="news-02-heading">INDIA won ICC T20 Men's World Cup after 13 years in west
-                                        indies under rohit sharma's
-                                        captaincy.</h5>
-                                    <h5 class="news-ago">2 hours ago.</h5>
-                                </div>
-                                <div class="rt-rt-news">
-                                    <img src="assets/img/t20.webp" alt="image">
-                                </div>
-                            </div>
+                            <?php for_you($conn) ?>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-    <div class="pagination">
-    <?php
-    for ($page = 1; $page <= $total_pages; $page++) {
-        echo '<a href="index.php?page=' . $page . '">' . $page . '</a> ';
-    }
-    ?>
+    <div class="pagination flex">
+        <h5 style="color: white;">Page No. </h5>
+        <?php
+        if (!isset($_GET['page'])) {
+            $page = 1;
+        } else {
+            $page = $_GET['page'];
+        }
+        for ($page_num = 1; $page_num <= $total_pages; $page_num++) {
+            if($page_num == $page) echo '<a class="active" href="index.php?page=' . $page_num . '">' . $page_num . '</a> ';
+            else echo '<a href="index.php?page=' . $page_num . '">' . $page_num . '</a> ';
+            if($page_num < $total_pages) echo ", ";
+        }
+        ?>
     </div>
     <footer>
         <div class="footer">

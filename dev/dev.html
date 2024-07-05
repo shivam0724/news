@@ -1,43 +1,8 @@
-<div class="news-section flex">
+<!-- <div class="news-section flex">
     <div class="news-section-content">
         <div class="news">
             <div class="lt-news flex">
                 <h2>Top Stories</h2>
-                <!-- <div class="news-container">
-                    <div class="news-grid">
-                        <div class="news-01 flex-direction">
-                            <img src="assets/img/t20.webp" alt="news-image">
-                            <h4 class="category-label">Cricket</h4>
-                            <h5 class="news-01-heading">INDIA won ICC T20 Men's World Cup after 13 years in west
-                                indies under rohit sharma's
-                                captaincy.</h5>
-                            <h5 class="news-ago">2 hours ago.</h5>
-                        </div>
-                        <div class="news-02 flex-direction">
-                            <div class="news-02-section flex-direction">
-                                <h4 class="category-label">Cricket</h4>
-                                <h5 class="news-02-heading">INDIA won ICC T20 Men's World Cup after 13 years in west
-                                    indies under rohit's
-                                    captaincy.</h5>
-                                <h5 class="news-ago">2 hours ago.</h5>
-                            </div>
-                            <div class="news-02-section flex-direction">
-                                <h4 class="category-label">Cricket</h4>
-                                <h5 class="news-02-heading">INDIA won ICC T20 Men's World Cup after 13 years in west
-                                    indies under rohit's
-                                    captaincy.</h5>
-                                <h5 class="news-ago">2 hours ago.</h5>
-                            </div>
-                            <div class="news-02-section flex-direction">
-                                <h4 class="category-label">Cricket</h4>
-                                <h5 class="news-02-heading">INDIA won ICC T20 Men's World Cup after 13 years in west
-                                    indies under rohit's
-                                    captaincy.</h5>
-                                <h5 class="news-ago">2 hours ago.</h5>
-                            </div>
-                        </div>
-                    </div>
-                </div>
                 <div class="news-container">
                     <div class="news-grid">
                         <div class="news-01 flex-direction">
@@ -107,7 +72,42 @@
                             </div>
                         </div>
                     </div>
-                </div> -->
+                </div>
+                <div class="news-container">
+                    <div class="news-grid">
+                        <div class="news-01 flex-direction">
+                            <img src="assets/img/t20.webp" alt="news-image">
+                            <h4 class="category-label">Cricket</h4>
+                            <h5 class="news-01-heading">INDIA won ICC T20 Men's World Cup after 13 years in west
+                                indies under rohit sharma's
+                                captaincy.</h5>
+                            <h5 class="news-ago">2 hours ago.</h5>
+                        </div>
+                        <div class="news-02 flex-direction">
+                            <div class="news-02-section flex-direction">
+                                <h4 class="category-label">Cricket</h4>
+                                <h5 class="news-02-heading">INDIA won ICC T20 Men's World Cup after 13 years in west
+                                    indies under rohit's
+                                    captaincy.</h5>
+                                <h5 class="news-ago">2 hours ago.</h5>
+                            </div>
+                            <div class="news-02-section flex-direction">
+                                <h4 class="category-label">Cricket</h4>
+                                <h5 class="news-02-heading">INDIA won ICC T20 Men's World Cup after 13 years in west
+                                    indies under rohit's
+                                    captaincy.</h5>
+                                <h5 class="news-ago">2 hours ago.</h5>
+                            </div>
+                            <div class="news-02-section flex-direction">
+                                <h4 class="category-label">Cricket</h4>
+                                <h5 class="news-02-heading">INDIA won ICC T20 Men's World Cup after 13 years in west
+                                    indies under rohit's
+                                    captaincy.</h5>
+                                <h5 class="news-ago">2 hours ago.</h5>
+                            </div>
+                        </div>
+                    </div>
+                </div>
                 <?php main($conn) ?>
             </div>
             <div class="rt-news flex">
@@ -155,4 +155,181 @@
             </div>
         </div>
     </div>
-</div>
+</div> -->
+
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>News HomePage</title>
+    <link rel="stylesheet" href="/style.css">
+</head>
+
+<body>
+    <div class="nav-bar flex">
+        <div class="nav-items flex">
+            <div class="lt-nav flex">
+                <a href="/"><img src="assets/img/svgs/logo.svg" alt="logo"></a>
+            </div>
+            <div class="mdl-nav flex">
+                <a href="/" class="nav-list-items">Home</a>
+                <a href="http://localhost/public/?category=Business" class="nav-list-items">Business</a>
+                <a href="http://localhost/public/?category=Education" class="nav-list-items">Education</a>
+                <a href="http://localhost/public/?category=Sports" class="nav-list-items">Sports</a>
+                <a href="http://localhost/public/?category=Movies" class="nav-list-items">Movies</a>
+                <a href="http://localhost/public/?category=Politics" class="nav-list-items">Politics</a>
+                <a href="http://localhost/public/?category=Technology" class="nav-list-items">Technology</a>
+                <a href="http://localhost/public/?category=Economy" class="nav-list-items">Economy</a>
+            </div>
+            <div class="rt-nav flex">
+                <form action="" method="post" class="flex">
+                    <input type="text" name="search-field" placeholder="search any topic" required="">
+                    <button type="submit">
+                        <img class="search-icon" src="assets/img/svgs/search.svg" alt="search">
+                        <img class="search-icon-hover" src="assets/img/svgs/search-hover.svg" alt="search">
+                    </button>
+                </form>
+            </div>
+        </div>
+    </div>
+    <div class="trending-nav flex">
+        <div class="trending-nav-items flex" style="user-select: none;">
+            <div class="lt-trending">
+                <h3>Trending Topics <img src="assets/img/svgs/right_arrow.svg" alt="arrow"></h3>
+            </div>
+            <div class="rt-trending flex">
+                <a href="http://localhost/public/?topic=T20 World Cup">T20 World Cup</a> |
+                <a href="http://localhost/public/?topic=IPL 2024">IPL 2024</a> |
+                <a href="http://localhost/public/?topic=Nifty 50">Nifty 50</a> |
+                <a href="http://localhost/public/?topic=Sensex">Sensex</a> |
+                <a href="http://localhost/public/?topic=Reliance Industries">Reliance Industries</a> |
+                <a href="http://localhost/public/?topic=Telecom Rate Hike">Telecom Rate Hike</a> |
+                <a href="http://localhost/public/?topic=Parliament">Parliament</a>
+            </div>
+        </div>
+    </div>
+    <div class="news-section flex">
+        <div class="news-section-content">
+            <div class="news">
+                <div class="lt-news flex">
+                    <h2>Top Stories</h2>
+                    <div class="news-container">
+                        <div class="news-grid">
+                            <div class="news-01 flex-direction"><img src="/uploads/thumbnails/news_1720110774.jpeg"
+                                    alt="news-image">
+                                <h4 class="category-label">Sports</h4>
+                                <h5 class="news-01-heading">India Triumphs in Thrilling Final: Captures ICC T20 World
+                                    Cup 2024 Crown</h5>
+                                <h5 class="news-ago">2024-07-05 22:02:54</h5>
+                            </div>
+                            <div class="news-02 flex-direction">
+                                <div class="news-02-section flex-direction">
+                                    <h4 class="category-label">Sports</h4>
+                                    <h5 class="news-02-heading">India’s Triumph: A Historic Return and Emotional
+                                        Revelations</h5>
+                                    <h5 class="news-ago">2024-07-05 16:46:19</h5>
+                                </div>
+                                <div class="news-02-section flex-direction">
+                                    <h4 class="category-label">Sports</h4>
+                                    <h5 class="news-02-heading">Rahul Dravid’s Candid Revelation: The Emotional Journey
+                                        After India’s T20 WC Triumph</h5>
+                                    <h5 class="news-ago">2024-07-05 16:43:40</h5>
+                                </div>
+                                <div class="news-02-section flex-direction">
+                                    <h4 class="category-label">Sports</h4>
+                                    <h5 class="news-02-heading">Rahul Dravid’s Candid Revelation: The Emotional Journey
+                                        After India’s T20 WC Triumph</h5>
+                                    <h5 class="news-ago">2024-07-05 16:43:40</h5>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="news-container">
+                        <div class="news-grid">
+                            <div class="news-01 flex-direction"><img src="/uploads/thumbnails/news_1720177887.webp"
+                                    alt="news-image">
+                                <h4 class="category-label">Sports</h4>
+                                <h5 class="news-01-heading">Mumbai Celebrates Historic T20 World Cup Victory: Fans Flock
+                                    to Marine Drive for Grand Parade</h5>
+                                <h5 class="news-ago">2024-07-05 16:41:27</h5>
+                            </div>
+                            <div class="news-02 flex-direction">
+                                <div class="news-02-section flex-direction">
+                                    <h4 class="category-label">Sports</h4>
+                                    <h5 class="news-02-heading">India Triumphs in Thrilling Final: Captures ICC T20
+                                        World Cup 2024 Crown</h5>
+                                    <h5 class="news-ago">2024-07-04 22:02:54</h5>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="rt-news flex">
+                            <h2>For You</h2>
+                            <div class="news-container">
+                                <div class="news-container-content flex-direction">
+                                    <div class="rt-news-grid">
+                                        <div class="lt-rt-news flex-direction">
+                                            <h4 class="category-label">Sports</h4>
+                                            <h5 class="news-02-heading">India Triumphs in Thrilling Final: Captures ICC
+                                                T20 World Cup 2024 Crown</h5>
+                                            <h5 class="news-ago">2024-07-05 22:02:54</h5>
+                                        </div>
+                                        <div class="rt-rt-news"><img src="/uploads/thumbnails/news_1720110774.jpeg"
+                                                alt="image"></div>
+                                    </div>
+                                    <div class="rt-news-grid">
+                                        <div class="lt-rt-news flex-direction">
+                                            <h4 class="category-label">Sports</h4>
+                                            <h5 class="news-02-heading">India’s Triumph: A Historic Return and Emotional
+                                                Revelations</h5>
+                                            <h5 class="news-ago">2024-07-05 16:46:19</h5>
+                                        </div>
+                                        <div class="rt-rt-news"><img src="/uploads/thumbnails/news_1720178179.webp"
+                                                alt="image"></div>
+                                    </div>
+                                    <div class="rt-news-grid">
+                                        <div class="lt-rt-news flex-direction">
+                                            <h4 class="category-label">Sports</h4>
+                                            <h5 class="news-02-heading">Rahul Dravid’s Candid Revelation: The Emotional
+                                                Journey After India’s T20 WC Triumph</h5>
+                                            <h5 class="news-ago">2024-07-05 16:43:40</h5>
+                                        </div>
+                                        <div class="rt-rt-news"><img src="/uploads/thumbnails/news_1720178020.webp"
+                                                alt="image"></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+            <div class="pagination">
+            </div>
+            <footer>
+                <div class="footer">
+                    <div class="lt-footer">
+                        © 2024 shivam, All Rights Reserved.
+                    </div>
+                    <div class="rt-footer">
+                        <img src="/assets/img/footer/twitter.svg" alt="twitter">
+                        <img src="/assets/img/footer/insta.svg" alt="instagram">
+                        <img src="/assets/img/footer/fb.svg" alt="facebook">
+                    </div>
+                </div>
+            </footer>
+
+
+            <script src="script.js"></script>
+            <script src="/assets/js/jquery-3.7.1.min.js"></script>
+
+</body>
+
+</html>
+
+<!-- NAVBAR -->
+<?php include $_SERVER['DOCUMENT_ROOT'] . '/assets/partials/nav.php'; ?>
+
+<!-- footer -->
+<?php include $_SERVER['DOCUMENT_ROOT'] . '/assets/partials/footer.php'; ?>

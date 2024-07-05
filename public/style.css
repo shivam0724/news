@@ -1,1 +1,76 @@
 @import url('/style.css');
+
+.public-news{
+    background-color: var(--background-color);
+}
+.public-welcome{
+    background-color: var(--news-color);
+    color: white;
+    margin-top: 15px;
+    padding: 15px;
+    border-radius: 10px;
+    width: 69.5%;
+}
+.public-news-content{
+    background-color: var(--news-color);
+    height: 200px;
+    padding: 10px;
+    margin: 15px 20px 0px 20px;
+    border-radius: 12px;
+    gap: 4%;
+    width: 70%;
+    display: grid;
+    grid-template-columns: 30% 65%;
+    cursor: pointer;
+}
+.public-news-content .lt-public-news img{
+    /* width: 250px;
+    height: 160px; */
+    width: 100%;
+    height: 100%;
+    /* min-width: 200px; */
+    /* min-height: 120px; */
+    max-height: 160px;
+    margin-left: 3%;
+    border-radius: 10px;
+}
+.public-news-content .rt-public-news{
+    color: white;
+    align-items: flex-start;
+    /* justify-content: space-evenly; */
+    height: 80%;
+}
+.rt-public-news h3{
+    font-size: 22px;
+    margin-bottom: 20px;
+    word-break: normal;
+    width: 90%;
+}
+.rt-public-news h5:first-of-type{
+    font-size: 16px;
+    font-weight: 400;
+}
+.pagination{
+    padding: 20px;
+}
+
+.no-results{
+    color: white;
+    padding: 20px;
+    margin-top: 30px;
+    width: 70%;
+    border-radius: 12px;
+    background-color: var(--news-color);
+}
+
+@media screen and (max-width:1000px){
+    .public-news-content{
+        width: 90%;
+    }
+    .public-welcome{
+        width: 89.5%;
+    }
+    .no-results{
+        width: 88.5%;
+    }
+}

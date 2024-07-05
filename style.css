@@ -15,6 +15,7 @@
 body{
     width: 100vw;
     height: 100%;
+    background-color: var(--background-color);
 }
 a{
     text-decoration: none;
@@ -147,7 +148,7 @@ a:hover{
     gap: 1%;
 }
 .lt-news, .rt-news{
-    padding: 16px;
+    padding: 16px 16px 16px 30px;
     background-color: var(--news-color);
     border-radius: 12px;
     flex-direction: column;
@@ -192,7 +193,8 @@ a:hover{
 .news-01 img{
     margin: 15px 0;
     border-radius: 16px;
-    width: 300px;
+    /* width: 300px; */
+    width: 100%;
 }
 .news-ago{
     font-weight: 300;
@@ -217,6 +219,7 @@ a:hover{
 .news-container-content{
     padding: 10px 0;
     justify-content: space-evenly;
+    height: 100%;
 }
 .rt-news-grid{
     display: grid;
@@ -245,6 +248,7 @@ footer {
     display: flex;
     justify-content: center;
     align-items: center;
+    user-select: none;
 }
 
 .footer {
@@ -261,4 +265,45 @@ footer {
 .rt-footer svg {
     height: 20px;
     padding: 10px;
+}
+
+/* PAGINATION */
+
+.pagination{
+    background-color: var(--background-color);
+    color: white;
+}
+.pagination a.active{
+    color: var(--btn-hvr2);
+}
+
+@media screen and (max-width:1000px) {
+    .news-section-content{
+        width: 90%;
+    }
+    /* .rt-news{
+        display: none;
+    } */
+    .news{
+        /* grid-template-columns: 100%; */
+        display: flex;
+        flex-direction: column;
+        gap: 20px;
+    }
+    .rt-news h2{
+        margin-top: 30px;
+    }
+    .rt-rt-news{
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+    .rt-rt-news img{
+        width: 80%;
+        position: static;
+    }
+    /* footer{
+        position: absolute;
+        bottom: 0;
+    } */
 }

@@ -1,0 +1,63 @@
+@import url('/style.css');
+
+body{
+    color: white;
+}
+/* .lt-news{
+    background-color: var(--background-color);
+}
+.lt-news>*{
+    background-color: var(--news-color);
+    padding: 20px;
+    border-radius: 7px;
+    width: 100%;
+} */
+.news-section h3{
+    background-color: var(--news-color);
+    padding: 20px;
+    border-radius: 12px;
+    width: 70%;
+    margin-top: 20px;
+}
+.news-section>h5{
+    background-color: var(--news-color);
+    padding: 20px;
+    border-radius: 12px;
+    width: 70%;
+    margin-top: 10px;
+}
+.news-section-content{
+    padding: 20px;
+}
+.lt-news h3{
+    width: 90%;
+    font-size: 28px;
+    font-weight: 800;
+}
+.lt-news img{
+    border-radius: 12px;
+    /* width: 500px; */
+    width: 70%;
+    margin: 15px;
+}
+.news-ago{
+    width: 90%;
+    text-align: start;
+}
+.lt-news h5:last-child{
+    width: 90%;
+    text-align: start;
+    margin: 15px;
+    font-size: 15px;
+    font-weight: 400;
+}
+.lt-news h5 strong{
+    font-size: 18px;
+    font-weight: 600;
+}
+
+@media screen and (max-width:1000px){
+    .news-section h3, .news-section>h5{
+        width: 86.5%;
+    }
+}
