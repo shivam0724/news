@@ -19,7 +19,7 @@ function main($conn)
 
     $current_page = ($page - 1) * $news_per_page;
 
-    $query = $conn->prepare("SELECT * FROM news_articles ORDER BY posted_on DESC LIMIT $current_page, $news_per_page");
+    $query = $conn->prepare("SELECT * FROM news_articles ORDER BY news_views DESC LIMIT $current_page, $news_per_page");
     // $query = $conn->prepare("SELECT * FROM news_articles ORDER BY posted_on DESC LIMIT 4");
     $query->execute();
     $result = $query->get_result();
@@ -45,7 +45,7 @@ function main($conn)
             echo '<img src="' . $row['thumbnail_path'] . '" alt="news-image">';
             echo '<h4 class="category-label">' . $row['news_category'] . '</h4>';
             echo '<h5 class="news-01-heading">' . $row['news_title'] . '</h5>';
-            echo '<h5 class="news-ago">' . $row['posted_on'] . '</h5>';
+            echo '<h5 class="news-ago">' . $row['posted_on'] . " &middot; " . time_ago($row['posted_on']) . '</h5>';
             echo '</div>';
         } else {
             if ($count % 4 == 2) {
@@ -56,7 +56,7 @@ function main($conn)
             echo '<input type="hidden" name="news_id" value="' . $row['image_identifier'] . '">';
             echo '<h4 class="category-label">' . $row['news_category'] . '</h4>';
             echo '<h5 class="news-02-heading">' . $row['news_title'] . '</h5>';
-            echo '<h5 class="news-ago">' . $row['posted_on'] . '</h5>';
+            echo '<h5 class="news-ago">' . $row['posted_on'] . " &middot; " . time_ago($row['posted_on'])  . '</h5>';
             echo '</div>';
             if ($count % 4 == 0) {
                 echo '</div>';
@@ -88,7 +88,7 @@ function for_you($conn)
         echo '<input type="hidden" name="news_id" value="' . $row['image_identifier'] . '">';
         echo '<h4 class="category-label">' . $row['news_category'] . '</h4>';
         echo '<h5 class="news-02-heading">' . $row['news_title'] . '</h5>';
-        echo '<h5 class="news-ago">' . $row['posted_on'] . '</h5>';
+        echo '<h5 class="news-ago">' . $row['posted_on'] . " &middot; " . time_ago($row['posted_on'])  . '</h5>';
         echo '</div>';
         echo '<div class="rt-rt-news">';
         echo '<img src="' . $row['thumbnail_path'] . '" alt="image">';
@@ -103,4 +103,20 @@ function fetch_all_news($conn)
     $result = $query->get_result();
 
     return $result->fetch_all(MYSQLI_ASSOC);
+}
+
+function time_ago($posted_on)
+{
+    $current_time = time();
+    $time_difference = $current_time - strtotime($posted_on);
+    $hours_ago = floor($time_difference / 3600);
+    if ($hours_ago <= 0) return "Just Now";
+    else if ($hours_ago == 1) return "1 hour ago";
+    else if ($hours_ago > 1 && $hours_ago <= 24) return "{$hours_ago} hours ago";
+    else if ($hours_ago > 24 && $hours_ago < 48) return floor($hours_ago / 24) . " day ago";
+    else if ($hours_ago > 48 && $hours_ago <= 744) return floor($hours_ago / 24) . " days ago";
+    else if ($hours_ago > 744 && $hours_ago < 1488) return floor($hours_ago / 744) . " month ago";
+    else if ($hours_ago >= 1488 && $hours_ago <= 8760) return floor($hours_ago / 744) . " months ago";
+    else if ($hours_ago >= 8760 && $hours_ago < 17520) return floor($hours_ago / 8760) . " year ago";
+    else if ($hours_ago >= 17520) return floor($hours_ago / 8760) . " year ago";
 }

@@ -77,7 +77,7 @@ include 'config/app.php';
                 <a href="#">T20 World Cup</a> |
                 <a href="#">IPL 2024</a> |
                 <a href="#">Nifty 50</a> |
-                <a href="#">Sensex</a> |
+                <a href="#">Budget</a> |
                 <a href="#">Reliance Industries</a> |
                 <a href="#">Telecom Rate Hike</a> |
                 <a href="#">Parliament</a>

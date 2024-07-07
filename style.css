@@ -4,8 +4,9 @@
     --black: #191818; /* #202124 */
     --background-color: #292a2d;
     --news-color: #1f1f1f;
-    --btn-hvr: #f6311f;
-    --btn-hvr2: #fff076;
+    --btn-color: #f6311f;
+    --btn-hover: #e31300;
+    --btn-hover2: #fff076;
 }
 *{
     margin: 0;
@@ -21,9 +22,17 @@ a{
     text-decoration: none;
     color: white;
     user-select: none;
+    transition: background-color 100ms ease-in;
+    transition: color 80ms ease-in;
 }
 a:hover{
-    color: var(--btn-hvr);
+    color: var(--btn-color);
+}
+button{
+    background-color: var(--btn-color);
+}
+button:hover{
+    background-color: var(--btn-hover);
 }
 .flex{
     display: flex;
@@ -68,7 +77,7 @@ a:hover{
     border: none;
 }
 .rt-nav form input:focus-visible{
-    outline: 2.2px solid var(--btn-hvr) !important;
+    outline: 2.2px solid var(--btn-color) !important;
 }
 .rt-nav form button[type="submit"]{
     background-color: var(--black);
@@ -93,7 +102,7 @@ a:hover{
     font-size: 16px;
 }
 .nav-list-items:hover{
-    color: var(--btn-hvr);
+    color: var(--btn-color);
 }
 
 .trending-nav{
@@ -125,7 +134,7 @@ a:hover{
     font-weight: 400;
 }
 .rt-trending a:hover{
-    color: var(--btn-hvr2);
+    color: var(--btn-hover2);
 }
 .news-section{
     background-color: var(--background-color);
@@ -274,7 +283,7 @@ footer {
     color: white;
 }
 .pagination a.active{
-    color: var(--btn-hvr2);
+    color: var(--btn-hover2);
 }
 
 @media screen and (max-width:1000px) {

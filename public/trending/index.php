@@ -9,6 +9,7 @@ if (!isset($_GET['trending_topic'])) {
 
 function trending_topic($conn)
 {
+    include $_SERVER['DOCUMENT_ROOT'] . '/config/app.php';
     if (isset($_GET['page_no'])) $page_no = $_GET['page_no'];
     else $page_no = 1;
     // var_dump($_SESSION);
@@ -42,7 +43,7 @@ function trending_topic($conn)
         echo '<div class="rt-public-news flex-direction">';
         echo '<h3>' . $row['news_title'] . ' </h3>';
         echo '<h5> ' . substr($row['news_description'], 0, 100) . '...</h5>';
-        echo '<h5 class="news-ago">' . $row['posted_on'] . '</h5>';
+        echo '<h5 class="news-ago">' . $row['posted_on'] ." &middot; " .time_ago($row['posted_on']) . '</h5>';
         echo '</div>';
         echo '</div>';
     }

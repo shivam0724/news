@@ -14,7 +14,8 @@ function html_title()
 
 
 function public_news($conn)
-{
+{   
+    include $_SERVER['DOCUMENT_ROOT'].'/config/app.php';
     $query = $conn->prepare("SELECT * FROM news_articles WHERE news_category =? ORDER BY posted_on DESC");
     $query->bind_param("s", $_GET['category']);
     $query->execute();
@@ -46,7 +47,7 @@ function public_news($conn)
         echo '<div class="rt-public-news flex-direction">';
         echo '<h3>' . $row['news_title'] . ' </h3>';
         echo '<h5> ' . substr($row['news_description'], 0, 100) . '...</h5>';
-        echo '<h5 class="news-ago">' . $row['posted_on'] . '</h5>';
+        echo '<h5 class="news-ago">' . $row['posted_on'] ." &middot; " .time_ago($row['posted_on'])  . '</h5>';
         echo '</div>';
         echo '</div>';
     }

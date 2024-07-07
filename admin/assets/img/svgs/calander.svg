@@ -1,0 +1,32 @@
+<svg xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" width="512"
+    height="512" x="0" y="0" viewBox="0 0 72 72" style="enable-background:new 0 0 512 512" xml:space="preserve">
+    <g>
+        <rect width="60" height="56" x="6" y="10" fill="#bad4e5" rx="5" opacity="1" data-original="#bad4e5"></rect>
+        <path fill="#97c0dd" d="M66 17v36.42L55.42 64H11a5 5 0 0 1-5-5V17a5 5 0 0 1 5-5h50a5 5 0 0 1 5 5z" opacity="1"
+            data-original="#97c0dd"></path>
+        <path fill="#eaf3f9" d="M66 15v36.42L55.42 62H11a5 5 0 0 1-5-5V15a5 5 0 0 1 5-5h50a5 5 0 0 1 5 5z" opacity="1"
+            data-original="#eaf3f9"></path>
+        <path fill="#c5def3" d="M66 48v3.42L55.42 62H52v-9a5 5 0 0 1 5-5z" opacity="1" data-original="#c5def3"></path>
+        <path fill="#d7e9f4" d="M66 48v3.42L55.42 62H54v-9a5 5 0 0 1 5-5z" opacity="1" data-original="#d7e9f4"></path>
+        <path fill="#fb4a34" d="M61 10H11a5.006 5.006 0 0 0-5 5v9h60v-9a5.006 5.006 0 0 0-5-5z" opacity="1"
+            data-original="#fb4a34"></path>
+        <circle cx="52" cy="17" r="3" fill="#db2e26" opacity="1" data-original="#db2e26"></circle>
+        <circle cx="36" cy="17" r="3" fill="#db2e26" opacity="1" data-original="#db2e26"></circle>
+        <circle cx="21" cy="17" r="3" fill="#db2e26" opacity="1" data-original="#db2e26"></circle>
+        <path fill="#3e4042"
+            d="M24 9v1h-2V9a1 1 0 0 0-1-1h-1a1 1 0 0 0-1 1v6a1 1 0 0 0 1 1h1a1 1 0 0 1 0 2h-1a3.009 3.009 0 0 1-3-3V9a3.009 3.009 0 0 1 3-3h1a3.009 3.009 0 0 1 3 3zM39 9v1h-2V9a1 1 0 0 0-1-1h-1a1 1 0 0 0-1 1v6a1 1 0 0 0 1 1h1a1 1 0 0 1 0 2h-1a3.009 3.009 0 0 1-3-3V9a3.009 3.009 0 0 1 3-3h1a3.009 3.009 0 0 1 3 3zM55 9v1h-2V9a1 1 0 0 0-1-1h-1a1 1 0 0 0-1 1v6a1 1 0 0 0 1 1h1a1 1 0 0 1 0 2h-1a3.009 3.009 0 0 1-3-3V9a3.009 3.009 0 0 1 3-3h1a3.009 3.009 0 0 1 3 3z"
+            opacity="1" data-original="#3e4042"></path>
+        <rect width="8" height="8" x="12" y="49" fill="#bad4e5" rx="1" opacity="1" data-original="#bad4e5"></rect>
+        <rect width="8" height="8" x="22" y="49" fill="#bad4e5" rx="1" opacity="1" data-original="#bad4e5"></rect>
+        <rect width="8" height="8" x="32" y="49" fill="#bad4e5" rx="1" opacity="1" data-original="#bad4e5"></rect>
+        <rect width="8" height="8" x="12" y="39" fill="#5ed3f2" rx="1" opacity="1" data-original="#5ed3f2"></rect>
+        <g fill="#bad4e5">
+            <rect width="8" height="8" x="22" y="39" rx="1" fill="#bad4e5" opacity="1" data-original="#bad4e5"></rect>
+            <rect width="8" height="8" x="32" y="39" rx="1" fill="#bad4e5" opacity="1" data-original="#bad4e5"></rect>
+            <rect width="8" height="8" x="42" y="39" rx="1" fill="#bad4e5" opacity="1" data-original="#bad4e5"></rect>
+            <rect width="8" height="8" x="32" y="29" rx="1" fill="#bad4e5" opacity="1" data-original="#bad4e5"></rect>
+        </g>
+        <rect width="8" height="8" x="42" y="29" fill="#67aae6" rx="1" opacity="1" data-original="#67aae6"></rect>
+        <rect width="8" height="8" x="52" y="29" fill="#67aae6" rx="1" opacity="1" data-original="#67aae6"></rect>
+    </g>
+</svg>

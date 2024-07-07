@@ -39,12 +39,14 @@ body{
     /* width: 500px; */
     width: 70%;
     margin: 15px;
+    max-width: 300px;
+    max-height: 300px;
 }
 .news-ago{
     width: 90%;
     text-align: start;
 }
-.lt-news h5:last-child{
+.lt-news h5:last-child, .lt-news h5:nth-last-child(2){
     width: 90%;
     text-align: start;
     margin: 15px;

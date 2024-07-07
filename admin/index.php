@@ -2,43 +2,23 @@
 session_start();
 
 include $_SERVER['DOCUMENT_ROOT'] . '/config/db_conn.php';
+include ADMIN_APP;
 
-$_SESSION['admin']['admin_username'] = "shivam";
-
-if (isset($_POST['title']) && isset($_POST['category']) && $_POST['description']) {
-
-    news_posting($conn);
+// $_SESSION['admin']['admin_username'] = "shivam";
+if (!isset($_SESSION['admin']['admin_username'])) {
+    header("Location: /admin/config/adlogin.php");
 }
 
-function news_posting($conn)
-{
-    $time = time();
-    $image_extension = strtolower(pathinfo($_FILES['thumbnail']['name'], PATHINFO_EXTENSION));
-    $thumbnail_path = $_SERVER['DOCUMENT_ROOT'] . "/uploads/thumbnails/news_" . $time . "." . $image_extension;
-    // echo $thumbnail_path;
-    $uploaded = false;
-
-    if (getimagesize($_FILES['thumbnail']['tmp_name'])) {
-        $uploaded = true;
-    } else echo '<script>alert("File is not an image.")</script>';
-
-    if ($uploaded = false) echo '<script>alert("Image uploading failed.")</script>';
-    else {
-        if (move_uploaded_file($_FILES['thumbnail']['tmp_name'], $thumbnail_path)) {
-            $thumbnail_path = "/uploads/thumbnails/news_" . $time . "." . $image_extension;
-
-            $query = $conn->prepare("INSERT INTO news_articles (posted_by, news_title, news_category, tags, news_description, thumbnail_path, image_identifier) VALUES (?, ?, ?, ?, ?, ?, ?)");
-            $query->bind_param("sssssss", $_SESSION['admin']['admin_username'], $_POST['title'], $_POST['category'], $_POST['tags'], $_POST['description'], $thumbnail_path, $time);
-            if ($query->execute()) {
-                echo '<script>alert("News Posted Successfully")</script>';
-            } else {
-                echo '<script>alert("News Posting Failed")</script>';
-            }
-        } else {
-            echo '<script>alert("Sorry, there was an error uploading news thumbnail.")</script>';
-        }
-    }
-}
+$categories = array(
+    "Sports" => "Sports",
+    "Education" => "Education",
+    "Business" => "Business",
+    "Movies" => "Movies",
+    "Politics" => "Politics",
+    "Technology" => "Technology",
+    "Economy" => "Economy",
+    "Other" => "Other"
+)
 ?>
 
 <!DOCTYPE html>
@@ -52,25 +32,174 @@ function news_posting($conn)
 </head>
 
 <body>
-    <form action="" method="post" class="news-submission flex-direction" enctype="multipart/form-data">
-        <h2>News Article Submission Form</h2>
-        <div class="news-submission-form">
-            <label for="title">News Title</label>
-            <input type="text" name="title" id="title" required>
-            <label for="category">Select News Category</label>
-            <select name="category" id="category" required>
-                <option value="Sports">Sports</option>
-                <option value="Business">Business</option>
-            </select>
-            <label for="tags">Type tags</label>
-            <input type="text" name="tags" id="tags">
-            <label for="description">Enter News Description</label>
-            <textarea name="description" id="description" placeholder="enter upto 500 words" required></textarea>
-            <label for="thumbnail">Upload thumbnail image</label>
-            <input type="file" name="thumbnail" id="thubmnail" accept="image/*" title="Only Images are accepeted" required>
+    <div class="nav">
+        <div class="lt-container">
+            <div class="vert-nav flex-start">
+                <h3>Admin
+                    <h3 style="padding: 5px;">Hello!&nbsp;<?php if (isset($_SESSION['admin']['admin_username'])) echo $_SESSION['admin']['admin_username'];
+                                                            else echo "Shivam"; ?></h3>
+                </h3>
+                <div class="navigation-items">
+                    <div class="navigation-items-list flex-start">
+                        <a href="#" data-id="dashboard" class="active"><img src="/admin/assets/img/svgs/dashboard.svg" alt="">&nbsp;&nbsp;Dashboard</a>
+                        <a href="#" data-id="admin"><img src="/admin/assets/img/svgs/admin.svg" alt="">&nbsp;&nbsp;Admins</a>
+                        <a href="#" data-id="news"><img src="/admin/assets/img/svgs/news.svg" alt="">&nbsp;&nbsp;News</a>
+                        <a href="#" data-id="news_posting"><img src="/admin/assets/img/svgs/posting.svg" alt="">&nbsp;&nbsp;News Posting</a>
+                        <a href="#" data-id="news_update"><img src="/admin/assets/img/svgs/update.svg" alt="">&nbsp;&nbsp;News Updation</a>
+                        <a href="#" data-id="news_delete"><img src="/admin/assets/img/svgs/delete.svg" alt="">&nbsp;&nbsp;News Deletion</a>
+                        <a href="#" data-id="contact"><img src="/admin/assets/img/svgs/contact.svg" alt="">&nbsp;&nbsp;Contact</a>
+                        <a href="/admin/config/logout.php"><img src="/admin/assets/img/svgs/logout.svg" alt="">&nbsp;&nbsp;Logout</a>
+                    </div>
+                </div>
+            </div>
         </div>
-        <button type="submit">Post</button>
-    </form>
+        <div class="rt-container flex-direction">
+            <div class="hrtl-nav flex">
+                <div class="hrtl-nav-content flex">
+                    <div class="lt-htrl-nav flex">
+                        <img src="/admin/assets/img/svgs/calander.svg" alt="calander">
+                        <h4>JULY 06, 2024</h4>
+                    </div>
+                    <div class="rt-htrl-nav flex">
+                        <img src="/admin/assets/img/svgs/notification.svg" alt="alerts">
+                        <img src="/admin/assets/img/svgs/user.svg" alt="alerts">
+                    </div>
+                </div>
+            </div>
+            <div class="dashboard-content">
+                <h3 id="admin-page-heading">Dashboard</h3>
+                <div class="main-content hide" id="dashboard">
+                    <h4>ALL NEWS</h4>
+                    <div class="category-wise-news">
+                        <div class="news-info-box flex-direction">
+                            <img src="/admin/assets/img/svgs/all_news.svg" alt="all">
+                            <h4><?php echo count(fetch_news($conn)) ?></h4>
+                            <h4>Total Articles</h4>
+                        </div>
+                        <div class="news-info-box flex-direction">
+                            <img src="/admin/assets/img/svgs/all_news.svg" alt="all">
+                            <h4><?php echo count(fetch_user_news($conn)) ?></h4>
+                            <h4>Total Articles Posted By You</h4>
+                        </div>
+                    </div>
+                    <h4>Category Wise News</h4>
+                    <div class="category-wise-news">
+                        <?php
+                        foreach ($categories as $key => $value) {
+                            show_category_wise_count($conn, $key);
+                        }
+                        ?>
+                    </div>
+                </div>
+                <div class="main-content hide" id="admin">
+                    <table>
+                        <tr>
+                            <th>Admin_ID</th>
+                            <th>Name</th>
+                            <th>Username</th>
+                            <th>Password</th>
+                            <th>Admin Privilege</th>
+                            <th>Last Login Time</th>
+                            <th>Last Logout Time</th>
+                            <th>Admin Since</th>
+                        </tr>
+                        <?php try {
+                            show_admin_table($conn);
+                        } catch (Exception $catch) {
+                            echo '<td>122344</td><td>Shivam</td><td>shivam</td><td>shivam</td><td>Administrator</td><td>2024-07-06 21:52:51</td><td>2024-07-06 21:50:03</td><td>2024-06-05 23:37:03</td>';
+                        } ?>
+                    </table>
+                </div>
+                <div class="main-content" id="news">
+                    <h4>Filter</h4>
+                    <div class="news-table">
+                        <table>
+                            <tr>
+                                <th>News_ID</th>
+                                <th>Posted By</th>
+                                <th>News Title</th>
+                                <th>News Category</th>
+                                <th>Views</th>
+                                <th>News Highlight</th>
+                                <th>News Description</th>
+                                <th>Tags</th>
+                                <th>Posted On</th>
+                            </tr>
+                            <tr>
+                                <?php show_news($conn) ?>
+                            </tr>
+                        </table>
+                        <div class="pagination flex">
+                            <!-- <h5 style="color: white;">Page No. </h5> -->
+                            <?php
+                            if ($total_pages > 1) {
+                                echo '<h5 style="color: white;">Page No. </h5>';
+                            }
+                            for ($page_num = 1; $page_num <= $total_pages; $page_num++) {
+                                if ($total_pages > 1) {
+                                    if ($page_num == $page_no) echo '<a class="active" href="' . $_SERVER['PHP_SELF'] . '?page_no=' . $page_num . '">' . $page_num . '</a> ';
+                                    else echo '<a href="' . $_SERVER['PHP_SELF'] . '?page_no=' . $page_num . '">' . $page_num . '</a> ';
+                                    if ($page_num < $total_pages) echo ", ";
+                                }
+                            }
+                            ?>
+                        </div>
+                    </div>
+                    <div class="news-details"></div>
+                </div>
+                <div class="main-content hide" id="news_posting">
+                    <h4>Fill the following fields to post a news article</h4>
+                    <form action="" method="post" class="news-submission" enctype="multipart/form-data">
+                        <h2>News Article Submission Form</h2>
+                        <div class="news-submission-form flex-direction">
+                            <label for="title">News Title</label>
+                            <input type="text" name="title" id="title" placeholder="news title" required>
+                            <label for="category">Select News Category</label>
+                            <select name="category" id="category" required>
+                                <option value="NULL" disabled selected>-Select-</option>
+                                <!-- <option value="Education">Education</option> -->
+                                <!-- <option value="Business">Business</option> -->
+                                <?php
+                                foreach ($categories as $key => $value) {
+                                    echo '<option value="' . $key . '">' . $value . '</option>';
+                                }
+                                ?>
+                            </select>
+                            <label for="tags">Type tags</label>
+                            <input type="text" name="tags" placeholder="tags" id="tags">
+                            <label for="description">Type News Highlights</label>
+                            <textarea name="description" id="description" placeholder="enter upto 500 words" required></textarea>
+                            <label for="description1">Type News Description</label>
+                            <textarea name="description1" id="description1" placeholder="enter upto 500 words" required></textarea>
+                            <label for="thumbnail">Upload thumbnail image</label>
+                            <input type="file" name="thumbnail" id="thubmnail" accept="image/*" title="Only Images are accepeted" required>
+                        </div>
+                        <button type="submit">Post</button>
+                    </form>
+                </div>
+                <div class="main-content hide" id="news_update">
+                    <h4>Filter</h4>
+                    <div class="news-table">
+                        <table>
+
+                        </table>
+                    </div>
+                </div>
+                <div class="main-content hide" id="news_delete">News Delete</div>
+                <div class="main-content hide" id="contact">Contact</div>
+            </div>
+        </div>
+
+    </div>
 </body>
+
+<script>
+    if (window.history.replaceState) {
+        window.history.replaceState(null, null, window.location.href);
+    }
+</script>
+
+<script src="/admin/assets/js/admin.js"></script>
+<script src="/assets/js/jquery-3.7.1.min.js"></script>
 
 </html>

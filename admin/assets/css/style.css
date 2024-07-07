@@ -1,0 +1,106 @@
+@import url('/style.css');
+
+:root {
+    --main-color: #fff0e6;
+    --main-dark: #e5d3c8;
+    --black: #191818;
+    --btn-color: #D1510A;
+    --btn-color: #e45e16;
+    --light-orange: #f18221e2;
+    --nav-color: #fff0e5;
+    --btn-color-2: #ef8528e2;
+}
+
+.flex {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.container {
+    padding: 50px;
+    background-color: whitesmoke;
+    height: 85vh;
+    align-items: flex-start;
+}
+
+.login {
+    padding: 30px 30px;
+    padding-top: 50px;
+    flex-direction: column;
+    /* width: 100%; */
+    border: 1px solid #ccc;
+    box-sizing: border-box;
+    width: 30%;
+    border-radius: 12px;
+}
+
+.login-form {
+    flex-direction: column;
+    padding: 20px;
+    width: 100%;
+    justify-content: flex-start;
+    align-items: flex-start;
+}
+
+.login-form>* {
+    padding: 7px;
+}
+
+.login-form input {
+    width: 95%;
+    padding: 12px 18px;
+    margin: 8px 0;
+    display: inline-block;
+    border: 1px solid #ccc;
+    box-sizing: border-box;
+    border-radius: 12px;
+    font-weight: 500;
+    font-size: 1rem;
+    align-self: center;
+}
+
+.login-form label {
+    font-weight: 500;
+    font-size: 1.2rem;
+    text-align: start;
+}
+
+.login-btn{
+    align-self: center;
+    width: 100%;
+}
+.login-btn button{
+    color: white;
+    font-size: large;
+    font-weight: 600;
+    background-color: var(--btn-color);
+}
+
+#admin_login{
+    margin-left: 20px;
+    border: 0px solid var(--btn-color);
+    border-radius: 20px;
+    background-color: var(--btn-color);
+    padding: 7px 20px;
+    cursor: pointer;
+}
+#admin_login:hover{
+    background-color: var(--btn-color);
+    cursor: pointer;
+}
+
+@media screen and (max-width: 1000px) {
+    .login{
+        width: 80%;
+    }
+    .container{
+        padding: 50px 20px;
+    }
+}
+
+@media screen and (max-width: 468px) {
+    .login{
+        width: 95%;
+    }
+}
