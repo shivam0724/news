@@ -14,7 +14,7 @@ function trending_topic($conn)
     else $page_no = 1;
     // var_dump($_SESSION);
     $search = "%" . $_GET['trending_topic'] . "%";
-    $query = $conn->prepare("SELECT * from news_articles WHERE news_title LIKE ? OR news_description LIKE ? OR tags LIKE ? ORDER BY posted_on DESC");
+    $query = $conn->prepare("SELECT * from news_articles WHERE news_title LIKE ? OR news_highlights LIKE ? OR tags LIKE ? ORDER BY posted_on DESC");
     $query->bind_param("sss", $search, $search, $search);
     $query->execute();
     $result = $query->get_result();
@@ -26,7 +26,7 @@ function trending_topic($conn)
     $total_pages = ceil($total_news / $news_per_page);
     $current_news_set = ($page_no - 1) * $news_per_page;
 
-    $query = $conn->prepare("SELECT * from news_articles WHERE news_title LIKE ? OR news_description LIKE ? OR tags LIKE ? ORDER BY posted_on DESC LIMIT $current_news_set, $news_per_page");
+    $query = $conn->prepare("SELECT * from news_articles WHERE news_title LIKE ? OR news_highlights LIKE ? OR tags LIKE ? ORDER BY posted_on DESC LIMIT $current_news_set, $news_per_page");
     $query->bind_param("sss", $search, $search, $search);
     $query->execute();
     $result = $query->get_result();
@@ -42,7 +42,7 @@ function trending_topic($conn)
         echo '</div>';
         echo '<div class="rt-public-news flex-direction">';
         echo '<h3>' . $row['news_title'] . ' </h3>';
-        echo '<h5> ' . substr($row['news_description'], 0, 100) . '...</h5>';
+        echo '<h5> ' . substr($row['news_highlights'], 0, 100) . '...</h5>';
         echo '<h5 class="news-ago">' . $row['posted_on'] ." &middot; " .time_ago($row['posted_on']) . '</h5>';
         echo '</div>';
         echo '</div>';

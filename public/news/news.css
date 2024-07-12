@@ -63,3 +63,14 @@ body{
         width: 86.5%;
     }
 }
+@media screen and (max-width:468px){
+    .news-section-content{
+        padding: 0;
+    }
+    .news-section h3{
+        font-size: 17px;
+    }
+    .news-section h3, .news-section>h5{
+        width: 82.5%;
+    }
+}

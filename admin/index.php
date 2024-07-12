@@ -41,13 +41,13 @@ $categories = array(
                 </h3>
                 <div class="navigation-items">
                     <div class="navigation-items-list flex-start">
-                        <a href="#" data-id="dashboard" class="active"><img src="/admin/assets/img/svgs/dashboard.svg" alt="">&nbsp;&nbsp;Dashboard</a>
-                        <a href="#" data-id="admin"><img src="/admin/assets/img/svgs/admin.svg" alt="">&nbsp;&nbsp;Admins</a>
-                        <a href="#" data-id="news"><img src="/admin/assets/img/svgs/news.svg" alt="">&nbsp;&nbsp;News</a>
-                        <a href="#" data-id="news_posting"><img src="/admin/assets/img/svgs/posting.svg" alt="">&nbsp;&nbsp;News Posting</a>
-                        <a href="#" data-id="news_update"><img src="/admin/assets/img/svgs/update.svg" alt="">&nbsp;&nbsp;News Updation</a>
-                        <a href="#" data-id="news_delete"><img src="/admin/assets/img/svgs/delete.svg" alt="">&nbsp;&nbsp;News Deletion</a>
-                        <a href="#" data-id="contact"><img src="/admin/assets/img/svgs/contact.svg" alt="">&nbsp;&nbsp;Contact</a>
+                        <a href="#dashboard" data-id="dashboard" class="active"><img src="/admin/assets/img/svgs/dashboard.svg" alt="">&nbsp;&nbsp;Dashboard</a>
+                        <a href="#admin" data-id="admin"><img src="/admin/assets/img/svgs/admin.svg" alt="">&nbsp;&nbsp;Admins</a>
+                        <a href="#news" data-id="news"><img src="/admin/assets/img/svgs/news.svg" alt="">&nbsp;&nbsp;News</a>
+                        <a href="#news_posting" data-id="news_posting"><img src="/admin/assets/img/svgs/posting.svg" alt="">&nbsp;&nbsp;News Posting</a>
+                        <a href="#news_update" data-id="news_update"><img src="/admin/assets/img/svgs/update.svg" alt="">&nbsp;&nbsp;News Updation</a>
+                        <a href="#news_delete" data-id="news_delete"><img src="/admin/assets/img/svgs/delete.svg" alt="">&nbsp;&nbsp;News Deletion</a>
+                        <a href="#contact" data-id="contact"><img src="/admin/assets/img/svgs/contact.svg" alt="">&nbsp;&nbsp;Contact</a>
                         <a href="/admin/config/logout.php"><img src="/admin/assets/img/svgs/logout.svg" alt="">&nbsp;&nbsp;Logout</a>
                     </div>
                 </div>
@@ -58,7 +58,8 @@ $categories = array(
                 <div class="hrtl-nav-content flex">
                     <div class="lt-htrl-nav flex">
                         <img src="/admin/assets/img/svgs/calander.svg" alt="calander">
-                        <h4>JULY 06, 2024</h4>
+                        <!-- <h4>JULY 06, 2024</h4> -->
+                        <h4><?php echo date('F d, Y') ?></h4>
                     </div>
                     <div class="rt-htrl-nav flex">
                         <img src="/admin/assets/img/svgs/notification.svg" alt="alerts">
@@ -68,7 +69,7 @@ $categories = array(
             </div>
             <div class="dashboard-content">
                 <h3 id="admin-page-heading">Dashboard</h3>
-                <div class="main-content hide" id="dashboard">
+                <div class="main-content" id="dashboard">
                     <h4>ALL NEWS</h4>
                     <div class="category-wise-news">
                         <div class="news-info-box flex-direction">
@@ -110,39 +111,35 @@ $categories = array(
                         } ?>
                     </table>
                 </div>
-                <div class="main-content" id="news">
-                    <h4>Filter</h4>
+                <div class="main-content hide" id="news">
+                    <div class="news-filter flex">
+                        <h4>Filter</h4>
+                        <form action="" method="get" class="flex">
+                            <select name="filter_name" id="filter-name">
+                                <?php
+                                foreach (fetch_one($conn, '1011211100') as $key => $value) {
+                                    echo '<option value="' . $key . '">' . ucwords(str_replace('_', ' ', $key)) . '</option>';
+                                }
+                                ?>
+                            </select>
+                            <input type="text" name="filter_value" id="filter-value" placeholder="enter value">
+                            <button type="submit" data-id="filter_button" value="true" name="filter_button">Filter</button>
+                        </form>
+                    </div>
                     <div class="news-table">
                         <table>
                             <tr>
-                                <th>News_ID</th>
-                                <th>Posted By</th>
-                                <th>News Title</th>
-                                <th>News Category</th>
-                                <th>Views</th>
-                                <th>News Highlight</th>
-                                <th>News Description</th>
-                                <th>Tags</th>
-                                <th>Posted On</th>
+                                <?php news_table_head() ?>
                             </tr>
                             <tr>
-                                <?php show_news($conn) ?>
+                                <?php
+                                show_table($conn) // show_news($conn)
+                                ?>
                             </tr>
                         </table>
                         <div class="pagination flex">
                             <!-- <h5 style="color: white;">Page No. </h5> -->
-                            <?php
-                            if ($total_pages > 1) {
-                                echo '<h5 style="color: white;">Page No. </h5>';
-                            }
-                            for ($page_num = 1; $page_num <= $total_pages; $page_num++) {
-                                if ($total_pages > 1) {
-                                    if ($page_num == $page_no) echo '<a class="active" href="' . $_SERVER['PHP_SELF'] . '?page_no=' . $page_num . '">' . $page_num . '</a> ';
-                                    else echo '<a href="' . $_SERVER['PHP_SELF'] . '?page_no=' . $page_num . '">' . $page_num . '</a> ';
-                                    if ($page_num < $total_pages) echo ", ";
-                                }
-                            }
-                            ?>
+                            <?php pagination() ?>
                         </div>
                     </div>
                     <div class="news-details"></div>
@@ -178,15 +175,74 @@ $categories = array(
                     </form>
                 </div>
                 <div class="main-content hide" id="news_update">
-                    <h4>Filter</h4>
+                    <div class="news-filter flex">
+                        <h4>Filter</h4>
+                        <form action="" method="get" class="flex">
+                            <select name="filter_name" id="filter-name">
+                                <?php
+                                foreach (fetch_one($conn, '1011211100') as $key => $value) {
+                                    echo '<option value="' . $key . '">' . ucwords(str_replace('_', ' ', $key)) . '</option>';
+                                }
+                                ?>
+                            </select>
+                            <input type="text" name="filter_value" id="filter-value" placeholder="enter value">
+                            <button type="submit" data-id="filter_button" name="filter_button">Filter</button>
+                        </form>
+                    </div>
                     <div class="news-table">
                         <table>
-
+                            <tr>
+                                <?php news_table_head() ?>
+                            </tr>
+                            <tr>
+                                <?php
+                                show_table($conn) // show_news($conn)
+                                ?>
+                            </tr>
                         </table>
+                        <div class="pagination flex">
+                            <!-- <h5 style="color: white;">Page No. </h5> -->
+                            <?php pagination() ?>
+                        </div>
                     </div>
+                    <div class="news-details"></div>
                 </div>
-                <div class="main-content hide" id="news_delete">News Delete</div>
-                <div class="main-content hide" id="contact">Contact</div>
+                <div class="main-content hide" id="news_delete">
+                    <div class="news-filter flex">
+                        <h4>Filter</h4>
+                        <form action="" method="get" class="flex">
+                            <select name="filter_name" id="filter-name">
+                                <?php
+                                foreach (fetch_one($conn, '1011211100') as $key => $value) {
+                                    echo '<option value="' . $key . '">' . ucwords(str_replace('_', ' ', $key)) . '</option>';
+                                }
+                                ?>
+                            </select>
+                            <input type="text" name="filter_value" id="filter-value" placeholder="enter value">
+                            <button type="submit" data-id="filter_button" name="filter_button">Filter</button>
+                        </form>
+                    </div>
+                    <div class="news-table">
+                        <table>
+                            <tr>
+                                <?php news_table_head() ?>
+                            </tr>
+                            <tr>
+                                <?php
+                                show_table($conn) // show_news($conn)
+                                ?>
+                            </tr>
+                        </table>
+                        <div class="pagination flex">
+                            <!-- <h5 style="color: white;">Page No. </h5> -->
+                            <?php pagination() ?>
+                        </div>
+                    </div>
+                    <div class="news-details"></div>
+                </div>
+                <div class="main-content hide" id="contact">
+                    <h4>No Contacts has been made with us yet.</h4>
+                </div>
             </div>
         </div>
 

@@ -5,7 +5,9 @@ body {
     display: flex;
     width: 99vw;
 }
-
+button, select, option{
+    cursor: pointer;
+}
 .nav {
     width: 100%;
     display: grid;
@@ -249,7 +251,7 @@ table td {
     padding: 5px;
     margin: 5px;
 }
-.news-submission button{
+.news-submission button, .news-filter button, .button{
     color: white;
     border: none;
     font-size: 20px;
@@ -260,7 +262,7 @@ table td {
     border-radius: 16px;
     transition: background-color,color 100ms;
 }
-.news-submission button:hover{
+.news-submission button:hover, .news-filter button:hover, .button:hover{
     background-color: var(--btn-hover);
     color: whitesmoke;
 }
@@ -276,8 +278,19 @@ table td {
     /* border-radius: 4px;
     border: 1px solid black; */
 }
+select, input{
+    padding: 8px 16px;
+    margin: 8px 0;
+    display: inline-block;
+    border: 1px solid #ccc;
+    box-sizing: border-box;
+    border-radius: 12px;
+    resize: none;
+    background-color: aliceblue;
+}
 input[type='file']{
     border: none;
+    background-color: transparent;
 }
 input[type='file']::file-selector-button{
     border-radius: 12px;
@@ -334,6 +347,24 @@ label[for='description'], label[for='description1']{
     max-width: 300px;
     min-width: none;
     border-radius: 12px;
+}
+.news-delete-button{
+    width: 100%;
+    margin: 10px;
+    padding: 2px;
+}
+
+/* FILTER */
+
+.news-filter{
+    justify-content: flex-start;
+    gap: 10px;
+}
+.news-filter form{
+    gap: 10px;
+}
+.news-filter button{
+    height: 40px;
 }
 @media screen and (max-width:1400px) {
     #dashboard .category-wise-news{

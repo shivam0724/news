@@ -3,29 +3,26 @@
 session_start();
 
 include $_SERVER['DOCUMENT_ROOT'] . '/config/db_conn.php';
-include 'config/app.php';
-
-
-{
-    if(isset($_GET['invalid_category']) && $_GET['invalid_category'] == 1){
+include 'config/app.php'; {
+    if (isset($_GET['invalid_category']) && $_GET['invalid_category'] == 1) {
         echo '<script>alert("Invalid Category Selection.")</script>';
-       //  unset($_GET['invalid_category']);
-       header("Location: /");
+        //  unset($_GET['invalid_category']);
+        header("Location: /");
     }
-    if(isset($_GET['invalid_news']) && $_GET['invalid_news'] == 1){
+    if (isset($_GET['invalid_news']) && $_GET['invalid_news'] == 1) {
         echo '<script>alert("Invalid News Selection.")</script>';
-       //  unset($_GET['invalid_news']);
-       header("Location: /");
+        //  unset($_GET['invalid_news']);
+        header("Location: /");
     }
-    if(isset($_GET['invalid_search']) && $_GET['invalid_search'] == 1){
+    if (isset($_GET['invalid_search']) && $_GET['invalid_search'] == 1) {
         echo '<script>alert("Invalid Search Input.")</script>';
-       //  unset($_GET['invalid_search']);
-       header("Location: /");
+        //  unset($_GET['invalid_search']);
+        header("Location: /");
     }
-    if(isset($_GET['invalid_trending_topic']) && $_GET['invalid_trending_topic'] == 1){
+    if (isset($_GET['invalid_trending_topic']) && $_GET['invalid_trending_topic'] == 1) {
         echo '<script>alert("Invalid Trending topic selection.")</script>';
-       //  unset($_GET['invalid_search']);
-       header("Location: /");
+        //  unset($_GET['invalid_search']);
+        header("Location: /");
     }
 }
 
@@ -48,6 +45,10 @@ include 'config/app.php';
                 <a href="/"><img src="assets/img/svgs/logo.svg" alt="logo" /></a>
             </div>
             <div class="mdl-nav flex">
+                <div class="mdl-nav-welcome flex">
+                    <img src="/assets/img/close.svg" class="hamburger-close" alt="close">
+                    <h3>Navigation Menu</h3>
+                </div>
                 <a href="/" class="nav-list-items">Home</a>
                 <a href="#" class="nav-list-items">Business</a>
                 <a href="#" class="nav-list-items">Education</a>
@@ -64,6 +65,7 @@ include 'config/app.php';
                         <img class="search-icon" src="assets/img/svgs/search.svg" alt="search" />
                         <img class="search-icon-hover" src="assets/img/svgs/search-hover.svg" alt="search">
                     </button>
+                    <img src="/assets/img/hamburger.svg" class="hamburger" alt="hamburger">
                 </form>
             </div>
         </div>
@@ -74,12 +76,12 @@ include 'config/app.php';
                 <h3>Trending Topics <img src="assets/img/svgs/right_arrow.svg" alt="arrow"></h3>
             </div>
             <div class="rt-trending flex">
-                <a href="#">T20 World Cup</a> |
-                <a href="#">IPL 2024</a> |
-                <a href="#">Nifty 50</a> |
-                <a href="#">Budget</a> |
-                <a href="#">Reliance Industries</a> |
-                <a href="#">Telecom Rate Hike</a> |
+                <a href="#">T20 World Cup</a> <span>|</span>
+                <a href="#">IPL 2024</a> <span>|</span>
+                <a href="#">Nifty 50</a> <span>|</span>
+                <a href="#">Budget</a> <span>|</span>
+                <a href="#">Reliance Industries</a> <span>|</span>
+                <a href="#">Telecom Rate Hike</a> <span>|</span>
                 <a href="#">Parliament</a>
             </div>
         </div>
@@ -111,9 +113,9 @@ include 'config/app.php';
             $page = $_GET['page'];
         }
         for ($page_num = 1; $page_num <= $total_pages; $page_num++) {
-            if($page_num == $page) echo '<a class="active" href="index.php?page=' . $page_num . '">' . $page_num . '</a> ';
+            if ($page_num == $page) echo '<a class="active" href="index.php?page=' . $page_num . '">' . $page_num . '</a> ';
             else echo '<a href="index.php?page=' . $page_num . '">' . $page_num . '</a> ';
-            if($page_num < $total_pages) echo ", ";
+            if ($page_num < $total_pages) echo ", ";
         }
         ?>
     </div>

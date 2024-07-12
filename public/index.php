@@ -45,8 +45,8 @@ function public_news($conn)
         echo '<img src=" ' . $row['thumbnail_path'] . '" alt="image">';
         echo '</div>';
         echo '<div class="rt-public-news flex-direction">';
-        echo '<h3>' . $row['news_title'] . ' </h3>';
-        echo '<h5> ' . substr($row['news_description'], 0, 100) . '...</h5>';
+        echo '<h3>"' . $row['news_title'] . '"</h3>';
+        echo '<h5> ' . substr($row['news_highlights'], 0, 100) . '...</h5>';
         echo '<h5 class="news-ago">' . $row['posted_on'] ." &middot; " .time_ago($row['posted_on'])  . '</h5>';
         echo '</div>';
         echo '</div>';
