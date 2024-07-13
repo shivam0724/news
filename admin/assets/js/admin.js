@@ -103,6 +103,9 @@ function get_news_details(news_id, child) {
                 news_delete_button(child)
                 news_delete_request(main_content, news_id);
             }
+            if (main_content.id == "news_update") {
+                news_update_form(main_content);
+            }
             nav_url_click();
         }
     })
@@ -138,7 +141,7 @@ function news_delete_request(main_content, news_id) {
             url: "/admin/config/admin_app.php",
             data: { news_id: news_id, delete_button: true },
             success: function (response) {
-                console.log(response);
+                // console.log(response);
                 alert("News Deleted Succesfully");
                 // window.location.href = "/admin/#news-delete";
                 // window.location.reload();
@@ -148,6 +151,106 @@ function news_delete_request(main_content, news_id) {
     })
 }
 
+
+//button for news updation
+function news_update_form(main_content) {
+    let form = `<div class="news-update-form flex">
+                        <form action="" method="post" class="flex" enctype="multipart/form-data">
+                            <input type="hidden" name="news_id" value="">
+                            <label for="update_column">Select Which field to update</label>
+                            <select name="update_column" id="update_column" required>
+                                <option hidden value selected disabled>--Select--</option>
+                                <option value="news_title">News Title</option>
+                                <option value="news_category">News Category</option>
+                                <option value="news_highlights">News Highlights</option>
+                                <option value="news_description">News Description</option>
+                                <option value="tags">News Tags</option>
+                                <option value="thumbnail_path">News Thumbnail</option>
+                            </select>
+                            <input type="text" name="update_value" id="update_value" placeholder="enter required data" required>
+                            <button type="submit" name="news_update_submit" class="button">Update</button>
+                        </form>
+                    </div>`;
+
+    const news_details = main_content.children[2];
+    news_details.innerHTML += form;
+
+    const update_form = news_details.children[2].firstElementChild;
+    const news_id = news_details.firstElementChild.innerHTML.replace(/\D/g, '');
+    const news_id_input = update_form.firstElementChild;
+    news_id_input.value = news_id;
+
+    update_button_content_replace(main_content, news_details, news_id, update_form);
+    news_update_form_request(update_form, news_id, news_details);
+    // console.log(news_id, news_id_input);
+}
+function news_update_form_request(update_form, news_id, news_details){
+    update_form.addEventListener('submit', (e)=>{
+        e.preventDefault();
+
+        // const update_column = update_form.querySelector('select[name="update_column"]').value;
+        const thumbnail_path = news_details.children[1].lastElementChild.src.replace('http://localhost', '');
+        // console.log(thumbnail_path);
+
+        const formData = new FormData(update_form);
+        formData.append('news_update_submit', true);
+        formData.append('thumbnail_path_old', thumbnail_path);
+
+        // for (let [key, value] of formData.entries()) {
+        //     console.log(key, value);
+        // }
+
+        $.ajax({
+            type: 'POST',
+            url: '/admin/config/admin_app.php',
+            // data: {news_id: news_id, update_value: update_value, update_column: update_column, news_update_submit: true},
+            data: formData,
+            processData: false,
+            contentType: false,
+            success: function (response){
+                if( JSON.parse(response) == "success"){
+                    alert('News field Updated Successfully. Refresh the page to see updated changes.');
+                }
+                else{
+                    console.log(response);
+                }
+            }
+        })
+    })
+}
+function update_button_content_replace(main_content, news_details, news_id, update_form){
+    update_form.children[3].style.display = 'none';
+    update_form.children[4].style.display = 'none';
+
+    update_form.children[2].addEventListener('change', (e)=>{
+        const select_value = e.target.value;
+        let input_field = update_form.children[3];
+        const news_details1 = news_details.children[1];
+
+        update_form.children[4].style.display = 'block';
+        set_correct_input(select_value, input_field);
+        set_input_value(select_value, news_details1, update_form);
+    })
+}
+
+function set_correct_input(select_value, input_field){
+    if(select_value == 'news_title' || select_value == 'tags') input_field.outerHTML = `<input type="text" name="update_value" id="update_value" placeholder="enter required data" required>`;
+    if(select_value == 'news_highlights' || select_value == 'news_description') input_field.outerHTML = `<textarea type="text" name="update_value" id="update_value" placeholder="enter required data" required></textarea>`;
+    if(select_value == 'news_category'){
+        input_field.outerHTML = `<select name="filter_value" id="filter_value" required>
+                                        ${categories_option(categories)};
+                                    </select>`;
+    }
+    if(select_value == 'thumbnail_path') input_field.outerHTML = '<input type="file" name="thumbnail_path" id="thubmnail" accept="image/*" title="Only Images are accepeted" required="">'
+}
+
+function set_input_value(select_value, news_details1, update_form){
+    let input_field = update_form.children[3];
+    if(select_value == 'news_title') input_field.value = news_details1.children[3].innerHTML;
+    else if(select_value == 'news_highlights')input_field.value = news_details1.children[9].innerHTML;
+    else if(select_value == 'news_description')input_field.value = news_details1.children[11].innerHTML;
+    else if(select_value == 'tags')input_field.value = news_details1.children[13].innerHTML;
+}
 //filter button 
 
 // function filter_button_listener(main_content, child){
@@ -180,7 +283,7 @@ function nav_url_click() {
 }
 
 function categories_option(categories) {
-    let list = "";
+    let list = `<option hidden value selected disabled>--Select--</option>`;
     for (const category of categories) {
         list += `<option value="${category}">${category}</option>`;
     }

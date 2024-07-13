@@ -290,8 +290,73 @@ function news_table_head()
 
 // NEWS DELETION
 
-if(isset($_POST['news_id']) && isset($_POST['delete_button']) && $_POST['delete_button'] == true){
+if (isset($_POST['news_id']) && isset($_POST['delete_button']) && $_POST['delete_button'] == true) {
     $delete = $conn->prepare("DELETE FROM news_articles WHERE news_id=?");
     $delete->bind_param("s", $_POST['news_id']);
     $delete->execute();
+}
+
+//NEWS UPDATE
+
+
+if (isset($_POST['news_id']) && isset($_POST['news_update_submit']) && isset($_POST['update_column']) && (isset($_POST['update_value']) || isset($_FILES['thumbnail_path'])) && $_POST['news_update_submit'] == true) {
+    $update_column = $_POST['update_column'];
+    if ($update_column != 'thumbnail_path') {
+        $update = $conn->prepare("UPDATE news_articles SET $update_column=? WHERE news_id=?");
+        $update->bind_param("ss", $_POST['update_value'], $_POST['news_id']);
+        if ($update->execute()) {
+            echo json_encode("success");
+        } else {
+            echo json_encode("failed");
+        }
+    } else if ($update_column == 'thumbnail_path') {
+        thumbnail_upload($conn, $_POST['news_id']);
+    }
+}
+
+function thumbnail_upload($conn, $news_id)
+{
+    $time = time();
+    $image_extension = strtolower(pathinfo($_FILES['thumbnail_path']['name'], PATHINFO_EXTENSION));
+    $thumbnail_path = $_SERVER['DOCUMENT_ROOT'] . "/uploads/thumbnails/news_" . $time . "." . $image_extension;
+    // echo $thumbnail_path;
+    $uploaded = false;
+
+    if (getimagesize($_FILES['thumbnail_path']['tmp_name'])) {
+        $uploaded = true;
+    } else echo '<script>alert("File is not an image.")</script>';
+
+    if ($uploaded = false) echo '<script>alert("Image uploading failed.")</script>';
+    else {
+        if (move_uploaded_file($_FILES['thumbnail_path']['tmp_name'], $thumbnail_path)) {
+            $thumbnail_path = "/uploads/thumbnails/news_" . $time . "." . $image_extension;
+
+            $query = $conn->prepare("UPDATE news_articles SET thumbnail_path=?, image_identifier=? WHERE news_id=?");
+            $query->bind_param("sss", $thumbnail_path, $time, $news_id);
+            if ($query->execute()) {
+                echo json_encode('success');
+            } else {
+                echo json_encode('failed');
+            }
+            move_thumbnail();
+        } else {
+            echo '<script>alert("Sorry, there was an error uploading news thumbnail.")</script>';
+        }
+    }
+}
+
+function move_thumbnail()
+{
+    $new_path = $_SERVER['DOCUMENT_ROOT'] . $_POST['thumbnail_path_old'];
+    $new_path = str_replace("thumbnails", 'thumbnails/trash', $new_path);
+    if (isset($_POST['thumbnail_path_old'])) {
+        $old_path = $_SERVER['DOCUMENT_ROOT'] . $_POST['thumbnail_path_old'];
+        if (file_exists($old_path)) {
+            if (rename($old_path, $new_path)) {
+                // echo json_encode('success');
+            } else {
+                echo json_encode('image deletion failed');
+            }
+        }
+    }
 }

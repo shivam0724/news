@@ -5,9 +5,13 @@ body {
     display: flex;
     width: 99vw;
 }
-button, select, option{
+
+button,
+select,
+option {
     cursor: pointer;
 }
+
 .nav {
     width: 100%;
     display: grid;
@@ -181,22 +185,25 @@ table td {
 
 /* DASHBOARD */
 
-.main-content{
+.main-content {
     background-color: var(--background-color);
     padding: 0 !important;
 }
-.main-content>*{
+
+.main-content>* {
     border-radius: 12px;
     background-color: var(--news-color);
     padding: 16px;
     margin: 12px 0;
 }
+
 #dashboard {
     background-color: var(--background-color);
     padding: 0;
 }
 
-#dashboard>*, .category-wise-news>* {
+#dashboard>*,
+.category-wise-news>* {
     border-radius: 12px;
     background-color: var(--news-color);
     padding: 16px;
@@ -215,13 +222,14 @@ table td {
     width: 30%;
 }
 
-#dashboard .category-wise-news{
+#dashboard .category-wise-news {
     display: grid;
     gap: 10%;
-    grid-template-columns: repeat(4,1fr);
+    grid-template-columns: repeat(4, 1fr);
     background-color: var(--background-color);
 }
-.category-wise-news>*{
+
+.category-wise-news>* {
     width: 90%;
     text-align: center;
     justify-content: center;
@@ -230,28 +238,34 @@ table td {
 
 /* news posting */
 
-.news-submission{
+.news-submission {
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
     gap: 20px;
 }
-.news-submission{
+
+.news-submission {
     padding: 20px;
 }
-.news-submission-form{
+
+.news-submission-form {
     display: grid;
-    grid-template-columns: repeat(2,1fr);
+    grid-template-columns: repeat(2, 1fr);
     justify-content: center;
     align-items: center;
     flex-direction: column;
 }
-.news-submission-form>*{
+
+.news-submission-form>* {
     padding: 5px;
     margin: 5px;
 }
-.news-submission button, .news-filter button, .button{
+
+.news-submission button,
+.news-filter button,
+.button {
     color: white;
     border: none;
     font-size: 20px;
@@ -260,13 +274,19 @@ table td {
     width: fit-content;
     padding: 4px 12px;
     border-radius: 16px;
-    transition: background-color,color 100ms;
+    transition: background-color, color 100ms;
 }
-.news-submission button:hover, .news-filter button:hover, .button:hover{
+
+.news-submission button:hover,
+.news-filter button:hover,
+.button:hover {
     background-color: var(--btn-hover);
     color: whitesmoke;
 }
-.news-submission-form input,.news-submission-form textarea,.news-submission-form select{
+
+.news-submission-form input,
+.news-submission-form textarea,
+.news-submission-form select {
     /* width: 100%; */
     padding: 12px 20px;
     margin: 8px 0;
@@ -278,7 +298,9 @@ table td {
     /* border-radius: 4px;
     border: 1px solid black; */
 }
-select, input{
+
+select,
+input {
     padding: 8px 16px;
     margin: 8px 0;
     display: inline-block;
@@ -288,11 +310,13 @@ select, input{
     resize: none;
     background-color: aliceblue;
 }
-input[type='file']{
+
+input[type='file'] {
     border: none;
     background-color: transparent;
 }
-input[type='file']::file-selector-button{
+
+input[type='file']::file-selector-button {
     border-radius: 12px;
     background-color: var(--btn-color);
     color: white;
@@ -303,52 +327,63 @@ input[type='file']::file-selector-button{
     cursor: pointer;
     transition: background-color 100ms ease-in;
 }
-input[type='file']::file-selector-button:hover{
+
+input[type='file']::file-selector-button:hover {
     background-color: var(--btn-hover);
     color: whitesmoke;
 }
-textarea{
+
+textarea {
     width: 400px;
     height: 100px;
 }
-label[for='description'], label[for='description1']{
+
+label[for='description'],
+label[for='description1'] {
     align-self: flex-start;
 }
 
-.pagination{
+.pagination {
     margin-top: 15px;
     background-color: var(--news-color);
 }
 
 /* news details */
-.news-details{
+.news-details {
     display: none;
 }
-.news-details h4{
+
+.news-details h4 {
     padding: 16px;
 }
-.news-details1{
+
+.news-details1 {
     display: grid;
     grid-template-columns: 20% 75%;
     column-gap: 5%;
     padding: 16px;
 }
-.news-details1 h5:nth-child(odd){
+
+.news-details1 h5:nth-child(odd) {
     font-weight: 500;
     font-size: 16px;
     padding: 5px 0;
 }
-.news-details1 h5:nth-child(even){
+
+.news-details1 h5:nth-child(even) {
     font-size: 15px;
     padding: 5px 0;
     font-weight: 400;
+    white-space: pre-wrap;
 }
-.news-details1 img{
+
+.news-details1 img {
     max-width: 300px;
     min-width: none;
     border-radius: 12px;
 }
-.news-delete-button{
+
+.news-delete-button {
     width: 100%;
     margin: 10px;
     padding: 2px;
@@ -356,29 +391,79 @@ label[for='description'], label[for='description1']{
 
 /* FILTER */
 
-.news-filter{
+.news-filter {
     justify-content: flex-start;
     gap: 10px;
 }
-.news-filter form{
+
+.news-filter form {
     gap: 10px;
 }
-.news-filter button{
+
+.news-filter button {
     height: 40px;
 }
+
+/* update */
+
+.news-update-form {
+    border-top: 1.5px solid #ccc;
+    padding-top: 14px;
+    justify-content: flex-start;
+}
+
+.news-update-form form {
+    justify-content: flex-start;
+    gap: 10px;
+    width: 100%;
+}
+
+.news-update-form form label {
+    font-weight: 600;
+    white-space: nowrap;
+    align-self: flex-start;
+    margin-top: 15px;
+}
+
+.news-update-form form select{
+    align-self: flex-start;
+}
+.news-update-form form select,
+.news-update-form form select option {
+    font-weight: 500;
+}
+
+.news-update-form form input{
+    width: 100%;
+}
+.news-update-form form input[type='file']{
+    padding: 0;
+}
+.news-update-form form textarea{
+    width: 100%;
+    padding: 12px 20px;
+    margin: 8px 0;
+    display: inline-block;
+    border: 1px solid #ccc;
+    box-sizing: border-box;
+    border-radius: 12px;
+    resize: none;
+}
+
 @media screen and (max-width:1400px) {
-    #dashboard .category-wise-news{
-        grid-template-columns: repeat(3,1fr);
+    #dashboard .category-wise-news {
+        grid-template-columns: repeat(3, 1fr);
     }
 }
 
-@media screen and (max-width:1000px){
-    #dashboard .category-wise-news{
-        grid-template-columns: repeat(2,1fr);
+@media screen and (max-width:1000px) {
+    #dashboard .category-wise-news {
+        grid-template-columns: repeat(2, 1fr);
     }
 }
-@media screen and (max-width:600px){
-    #dashboard .category-wise-news{
-        grid-template-columns: repeat(1,1fr);
+
+@media screen and (max-width:600px) {
+    #dashboard .category-wise-news {
+        grid-template-columns: repeat(1, 1fr);
     }
 }

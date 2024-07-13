@@ -26,7 +26,7 @@ $categories = array(
 
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=1440, initial-scale=1.0">
     <title>Admin Page</title>
     <link rel="stylesheet" href="style.css">
 </head>
@@ -69,7 +69,7 @@ $categories = array(
             </div>
             <div class="dashboard-content">
                 <h3 id="admin-page-heading">Dashboard</h3>
-                <div class="main-content" id="dashboard">
+                <div class="main-content hide" id="dashboard">
                     <h4>ALL NEWS</h4>
                     <div class="category-wise-news">
                         <div class="news-info-box flex-direction">
@@ -174,7 +174,7 @@ $categories = array(
                         <button type="submit">Post</button>
                     </form>
                 </div>
-                <div class="main-content hide" id="news_update">
+                <div class="main-content " id="news_update">
                     <div class="news-filter flex">
                         <h4>Filter</h4>
                         <form action="" method="get" class="flex">

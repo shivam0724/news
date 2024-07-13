@@ -37,7 +37,7 @@ function trending_topic($conn)
         echo '<div class="public-news-content flex">';
         echo '<div class="lt-public-news flex">';
         echo '<input type="hidden" name="news_id" value="' . $row['news_id'] . '">';
-        echo '<input type="hidden" name="news_id" value="' . $row['image_identifier'] . '">';
+        echo '<input type="hidden" name="image_identifier" value="' . $row['image_identifier'] . '">';
         echo '<img src=" ' . $row['thumbnail_path'] . '" alt="image">';
         echo '</div>';
         echo '<div class="rt-public-news flex-direction">';
@@ -93,5 +93,6 @@ function trending_topic($conn)
 
 <script src="/script.js"></script>
 <script src="/assets/js/jquery-3.7.1.min.js"></script>
+<script src="/public/public.js"></script>
 
 </html>
