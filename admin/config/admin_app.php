@@ -72,6 +72,7 @@ function show_category_wise_count($conn, $category)
     $row = fetch_news_category_wise($conn, $category);
 
     echo '<div class="news-info-box flex-direction">';
+    echo '<input type="hidden" name="category" value="' . $category . '">';
     echo '<img src="/admin/assets/img/svgs/all_news.svg" alt="all">';
     echo '<h4>' . count($row) . '</h4>';
     echo '<h4>Total Articles of ' . $category . ' Category</h4>';

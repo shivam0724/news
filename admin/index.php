@@ -31,6 +31,10 @@ $categories = array(
     <link rel="stylesheet" href="style.css">
 </head>
 
+<noscript>
+    <meta http-equiv="refresh" content="0; url=/config/redirects/nojs.php">
+</noscript>
+
 <body>
     <div class="nav">
         <div class="lt-container">
@@ -59,11 +63,17 @@ $categories = array(
                     <div class="lt-htrl-nav flex">
                         <img src="/admin/assets/img/svgs/calander.svg" alt="calander">
                         <!-- <h4>JULY 06, 2024</h4> -->
-                        <h4><?php echo date('F d, Y') ?></h4>
+                        <h4><?php echo date('l \of F jS, Y') ?></h4>
                     </div>
                     <div class="rt-htrl-nav flex">
-                        <img src="/admin/assets/img/svgs/notification.svg" alt="alerts">
-                        <img src="/admin/assets/img/svgs/user.svg" alt="alerts">
+                        <div class="notification-alerts-box">
+                            <h4>No Notifications Yet.</h4>
+                        </div>
+                        <div class="user-account-box">
+                            <a href="config/logout.php"><h4>Logout ?</h4></a>
+                        </div>
+                        <img src="/admin/assets/img/svgs/notification.svg" id="notification-alerts-icon" title="Notification Alerts" alt="alerts">
+                        <img src="/admin/assets/img/svgs/user.svg" id="user-account-icon" alt="user">
                     </div>
                 </div>
             </div>
@@ -78,6 +88,7 @@ $categories = array(
                             <h4>Total Articles</h4>
                         </div>
                         <div class="news-info-box flex-direction">
+                            <input type="hidden" name="posted_by" value='<?php echo fetch_user_news($conn)[0]['posted_by'] ?>'>
                             <img src="/admin/assets/img/svgs/all_news.svg" alt="all">
                             <h4><?php echo count(fetch_user_news($conn)) ?></h4>
                             <h4>Total Articles Posted By You</h4>
@@ -255,7 +266,8 @@ $categories = array(
     }
 </script>
 
-<script src="/admin/assets/js/admin.js"></script>
+<!-- <script src="/admin/assets/js/admin.js"></script> -->
+ <script type="module" src="/admin/assets/js/admin.js"></script>
 <script src="/assets/js/jquery-3.7.1.min.js"></script>
 
 </html>

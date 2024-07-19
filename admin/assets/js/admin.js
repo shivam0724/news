@@ -16,23 +16,29 @@ document.querySelectorAll(".navigation-items-list a").forEach(select => {
 })
 document.addEventListener('DOMContentLoaded', e => {
     const url_hash = window.location.hash;
-    const select = document.querySelector('.navigation-items-list a[data-id="' + url_hash.replace("#", "") + '"')
+    let select = document.querySelector('.navigation-items-list a[data-id="' + url_hash.replace("#", "") + '"')
+
+    if(select === null) select = document.querySelector('.navigation-items-list a[href="#dashboard"]');
 
     active_classes(select);
     set_heading(select);
     hiding_required_content(select);
     set_pagination_url(select, url_hash);
 })
+
 function clear_url(data_id) {
     // console.log(window.location.href, data_id);
     window.location.href = "/admin/#" + data_id;
 }
 function active_classes(select) {
-    document.querySelectorAll('.active').forEach(a => {
-        a.className = "";
-    })
-    select.className = "active";
-    console.log();
+    if (select == null) document.querySelector('.navigation-items-list a[href="#dashboard"]').className = 'active';
+    else {
+        document.querySelectorAll('.active').forEach(a => {
+            a.className = "";
+        })
+        select.className = "active";
+    }
+
 }
 function set_heading(select) {
     if (select.innerHTML != "Logout") document.getElementById('admin-page-heading').innerHTML = select.innerHTML;
@@ -82,7 +88,8 @@ document.querySelectorAll("tr").forEach(select => {
     select.childNodes.forEach(child => {
         child.addEventListener('click', function (e) {
             const news_id = child.parentElement.firstChild.innerHTML;
-            get_news_details(news_id, child);
+
+            if (child.closest(".main-content").id != "admin") get_news_details(news_id, child);
         })
     })
 })
@@ -184,8 +191,8 @@ function news_update_form(main_content) {
     news_update_form_request(update_form, news_id, news_details);
     // console.log(news_id, news_id_input);
 }
-function news_update_form_request(update_form, news_id, news_details){
-    update_form.addEventListener('submit', (e)=>{
+function news_update_form_request(update_form, news_id, news_details) {
+    update_form.addEventListener('submit', (e) => {
         e.preventDefault();
 
         // const update_column = update_form.querySelector('select[name="update_column"]').value;
@@ -207,22 +214,22 @@ function news_update_form_request(update_form, news_id, news_details){
             data: formData,
             processData: false,
             contentType: false,
-            success: function (response){
-                if( JSON.parse(response) == "success"){
+            success: function (response) {
+                if (JSON.parse(response) == "success") {
                     alert('News field Updated Successfully. Refresh the page to see updated changes.');
                 }
-                else{
+                else {
                     console.log(response);
                 }
             }
         })
     })
 }
-function update_button_content_replace(main_content, news_details, news_id, update_form){
+function update_button_content_replace(main_content, news_details, news_id, update_form) {
     update_form.children[3].style.display = 'none';
     update_form.children[4].style.display = 'none';
 
-    update_form.children[2].addEventListener('change', (e)=>{
+    update_form.children[2].addEventListener('change', (e) => {
         const select_value = e.target.value;
         let input_field = update_form.children[3];
         const news_details1 = news_details.children[1];
@@ -233,23 +240,23 @@ function update_button_content_replace(main_content, news_details, news_id, upda
     })
 }
 
-function set_correct_input(select_value, input_field){
-    if(select_value == 'news_title' || select_value == 'tags') input_field.outerHTML = `<input type="text" name="update_value" id="update_value" placeholder="enter required data" required>`;
-    if(select_value == 'news_highlights' || select_value == 'news_description') input_field.outerHTML = `<textarea type="text" name="update_value" id="update_value" placeholder="enter required data" required></textarea>`;
-    if(select_value == 'news_category'){
+function set_correct_input(select_value, input_field) {
+    if (select_value == 'news_title' || select_value == 'tags') input_field.outerHTML = `<input type="text" name="update_value" id="update_value" placeholder="enter required data" required>`;
+    if (select_value == 'news_highlights' || select_value == 'news_description') input_field.outerHTML = `<textarea type="text" name="update_value" id="update_value" placeholder="enter required data" required></textarea>`;
+    if (select_value == 'news_category') {
         input_field.outerHTML = `<select name="filter_value" id="filter_value" required>
                                         ${categories_option(categories)};
                                     </select>`;
     }
-    if(select_value == 'thumbnail_path') input_field.outerHTML = '<input type="file" name="thumbnail_path" id="thubmnail" accept="image/*" title="Only Images are accepeted" required="">'
+    if (select_value == 'thumbnail_path') input_field.outerHTML = '<input type="file" name="thumbnail_path" id="thubmnail" accept="image/*" title="Only Images are accepeted" required="">'
 }
 
-function set_input_value(select_value, news_details1, update_form){
+function set_input_value(select_value, news_details1, update_form) {
     let input_field = update_form.children[3];
-    if(select_value == 'news_title') input_field.value = news_details1.children[3].innerHTML;
-    else if(select_value == 'news_highlights')input_field.value = news_details1.children[9].innerHTML;
-    else if(select_value == 'news_description')input_field.value = news_details1.children[11].innerHTML;
-    else if(select_value == 'tags')input_field.value = news_details1.children[13].innerHTML;
+    if (select_value == 'news_title') input_field.value = news_details1.children[3].innerHTML;
+    else if (select_value == 'news_highlights') input_field.value = news_details1.children[9].innerHTML;
+    else if (select_value == 'news_description') input_field.value = news_details1.children[11].innerHTML;
+    else if (select_value == 'tags') input_field.value = news_details1.children[13].innerHTML;
 }
 //filter button 
 
@@ -289,3 +296,43 @@ function categories_option(categories) {
     }
     return list;
 }
+
+// dashboard category redirects
+
+document.querySelectorAll('.news-info-box').forEach(select => {
+    select.addEventListener('click', e => {
+        const category = select.children[0].value;
+
+        if (category === undefined) {
+            window.location.href = `?filter_name=news_id&filter_value=&filter_button=true#news`;
+        }
+        else if (select.children[0].name == "posted_by") {
+            window.location.href = `/admin/?filter_name=posted_by&filter_value=${category}&filter_button=true#news`;
+        }
+        else {
+            window.location.href = `/admin/?filter_name=news_category&filter_value=${category}&filter_button=true#news`;
+        }
+    })
+})
+
+// notification and user account events
+
+document.querySelectorAll('.rt-htrl-nav img').forEach(img => {
+    img.addEventListener('mouseover', (i) => {
+        if (i.target.alt == 'alerts') {
+            document.getElementsByClassName('notification-alerts-box')[0].style.display = 'flex';
+
+            document.getElementsByClassName('notification-alerts-box')[0].addEventListener('mouseleave', (n) => {
+                n.target.style.display = 'none';
+            })
+        }
+
+        else if (i.target.alt == 'user') {
+            document.getElementsByClassName('user-account-box')[0].style.display = 'flex';
+
+            document.getElementsByClassName('user-account-box')[0].addEventListener('mouseleave', (n) => {
+                n.target.style.display = 'none';
+            })
+        }
+    })
+})

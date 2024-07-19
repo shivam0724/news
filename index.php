@@ -38,6 +38,10 @@ include 'config/app.php'; {
     <link rel="stylesheet" href="style.css" />
 </head>
 
+<noscript>
+    <meta http-equiv="refresh" content="0; url=/config/redirects/nojs.php">
+</noscript>
+
 <body>
     <div class="nav-bar flex">
         <div class="nav-items flex">
